@@ -679,6 +679,20 @@ namespace Jeopardy
 
         #endregion
 
+        private void btnBlank_Click(object sender, EventArgs e)
+        {
+            if (btnBlank.BackColor == Color.Red)
+            {
+                QuestionForm.BlankScreen(false);
+                btnBlank.BackColor = SystemColors.Control;
+            }
+            else
+            {
+                QuestionForm.BlankScreen(true);
+                btnBlank.BackColor = Color.Red;
+            }
+        }
+
         
     }
 }

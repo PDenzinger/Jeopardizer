@@ -93,6 +93,7 @@
             this.score_p7_hlf = new System.Windows.Forms.Button();
             this.score_p7_sub = new System.Windows.Forms.Button();
             this.score_p7_add = new System.Windows.Forms.Button();
+            this.btnBlank = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -719,11 +720,22 @@
             this.score_p7_add.UseVisualStyleBackColor = true;
             this.score_p7_add.Click += new System.EventHandler(this.score_add);
             // 
+            // btnBlank
+            // 
+            this.btnBlank.Location = new System.Drawing.Point(657, 331);
+            this.btnBlank.Name = "btnBlank";
+            this.btnBlank.Size = new System.Drawing.Size(75, 23);
+            this.btnBlank.TabIndex = 61;
+            this.btnBlank.Text = "Blank";
+            this.btnBlank.UseVisualStyleBackColor = true;
+            this.btnBlank.Click += new System.EventHandler(this.btnBlank_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(739, 480);
+            this.Controls.Add(this.btnBlank);
             this.Controls.Add(this.score_p8_hlf);
             this.Controls.Add(this.score_p8_sub);
             this.Controls.Add(this.score_p8_add);
@@ -855,6 +867,7 @@
         private System.Windows.Forms.Button score_p2_add;
         private System.Windows.Forms.Button score_p1_hlf;
         private System.Windows.Forms.ToolStripMenuItem resetScoresToolStripMenuItem;
+        private System.Windows.Forms.Button btnBlank;
     }
 }
 

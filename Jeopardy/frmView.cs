@@ -283,6 +283,20 @@ namespace Jeopardy
             HideScreen(false);
         }
 
+        public void BlankScreen(bool hide)
+        {
+            if (hide)
+            {
+                HidePanel.Location = new Point(0, 0);
+                HidePanel.Width = this.Width;
+                HidePanel.Height = this.Height;
+                HidePanel.Visible = true;
+            }
+            else
+            {
+                HidePanel.Visible = false;
+            }
+        }
 
     }
 }
