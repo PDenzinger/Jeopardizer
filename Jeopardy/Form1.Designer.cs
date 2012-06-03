@@ -94,6 +94,8 @@
             this.score_p7_sub = new System.Windows.Forms.Button();
             this.score_p7_add = new System.Windows.Forms.Button();
             this.btnBlank = new System.Windows.Forms.Button();
+            this.nextLevelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.previousLevelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -177,29 +179,31 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
             this.saveQAToolStripMenuItem,
-            this.resetScoresToolStripMenuItem});
+            this.resetScoresToolStripMenuItem,
+            this.nextLevelToolStripMenuItem,
+            this.previousLevelToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.openToolStripMenuItem.Text = "&Open File";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveQAToolStripMenuItem
             // 
             this.saveQAToolStripMenuItem.Name = "saveQAToolStripMenuItem";
-            this.saveQAToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.saveQAToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.saveQAToolStripMenuItem.Text = "&Save Q/A";
             this.saveQAToolStripMenuItem.Click += new System.EventHandler(this.saveQAToolStripMenuItem_Click);
             // 
             // resetScoresToolStripMenuItem
             // 
             this.resetScoresToolStripMenuItem.Name = "resetScoresToolStripMenuItem";
-            this.resetScoresToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.resetScoresToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.resetScoresToolStripMenuItem.Text = "Reset Scores";
             this.resetScoresToolStripMenuItem.Click += new System.EventHandler(this.resetScoresToolStripMenuItem_Click);
             // 
@@ -209,20 +213,20 @@
             this.refreshAvailableDisplaysToolStripMenuItem,
             this.sendToToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.viewToolStripMenuItem.Text = "&View";
             // 
             // refreshAvailableDisplaysToolStripMenuItem
             // 
             this.refreshAvailableDisplaysToolStripMenuItem.Name = "refreshAvailableDisplaysToolStripMenuItem";
-            this.refreshAvailableDisplaysToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.refreshAvailableDisplaysToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
             this.refreshAvailableDisplaysToolStripMenuItem.Text = "&Refresh Available Displays";
             this.refreshAvailableDisplaysToolStripMenuItem.Click += new System.EventHandler(this.refreshAvailableDisplaysToolStripMenuItem_Click);
             // 
             // sendToToolStripMenuItem
             // 
             this.sendToToolStripMenuItem.Name = "sendToToolStripMenuItem";
-            this.sendToToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.sendToToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
             this.sendToToolStripMenuItem.Text = "Send To:";
             // 
             // btnNext
@@ -732,6 +736,20 @@
             this.btnBlank.UseVisualStyleBackColor = true;
             this.btnBlank.Click += new System.EventHandler(this.btnBlank_Click);
             // 
+            // nextLevelToolStripMenuItem
+            // 
+            this.nextLevelToolStripMenuItem.Name = "nextLevelToolStripMenuItem";
+            this.nextLevelToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.nextLevelToolStripMenuItem.Text = "Next Level";
+            this.nextLevelToolStripMenuItem.Click += new System.EventHandler(this.nextLevelToolStripMenuItem_Click);
+            // 
+            // previousLevelToolStripMenuItem
+            // 
+            this.previousLevelToolStripMenuItem.Name = "previousLevelToolStripMenuItem";
+            this.previousLevelToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.previousLevelToolStripMenuItem.Text = "Previous Level";
+            this.previousLevelToolStripMenuItem.Click += new System.EventHandler(this.previousLevelToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -870,6 +888,8 @@
         private System.Windows.Forms.Button score_p1_hlf;
         private System.Windows.Forms.ToolStripMenuItem resetScoresToolStripMenuItem;
         private System.Windows.Forms.Button btnBlank;
+        private System.Windows.Forms.ToolStripMenuItem nextLevelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem previousLevelToolStripMenuItem;
     }
 }
 

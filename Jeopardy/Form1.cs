@@ -722,6 +722,32 @@ namespace Jeopardy
             AChanged = true;
         }
 
+        private void nextLevelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int num = int.Parse(gLevel) + 1;
+            int limit = int.Parse(SettingsIni.IniReadValue("MAIN", "level"));
+            
+            if (num > limit)
+            {
+                num = limit;
+            }
+
+            PopulateScreen(num);
+        }
+
+        private void previousLevelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int num = int.Parse(gLevel) - 1;
+            int limit = int.Parse(SettingsIni.IniReadValue("MAIN", "level"));
+
+            if (num < 1)
+            {
+                num = 1;
+            }
+
+            PopulateScreen(num);
+        }
+
         
     }
 }
