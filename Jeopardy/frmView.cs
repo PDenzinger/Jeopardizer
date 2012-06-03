@@ -182,15 +182,6 @@ namespace Jeopardy
                     //answer is not currently displayed, display it
                     webBrowser1.Document.GetElementById("answer").Style = "display:block;text-align:center";
 
-                    //old code
-                    //int width = (int)(this.Size.Width / 2);
-                    //int height = (int)(this.Size.Height / 5);
-                    //int X = (int)(this.Location.X + (this.Size.Width / 2) - (width / 2));
-                    //int Y = (int)(this.Location.Y + (this.Size.Height / 2) - (height / 2));
-                    //lblAnswerPopup.Size = new Size(width, height);
-                    //lblAnswerPopup.Location = new Point(X, Y);
-                    //lblAnswerPopup.Visible = true;
-
                     return true;
                 }
                 else
@@ -201,7 +192,7 @@ namespace Jeopardy
                     return false;
                 }
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -221,7 +212,7 @@ namespace Jeopardy
         {
             if ((names.Length == colors.Length)&&(names.Length > 0)&&(names.Length<11))
             {
-                Label[] AnswerLabels = new Label[] { order1, order2, order3, order4, order5, order6, order7, order8, order9, order10 };
+                Label[] AnswerLabels = new Label[] { lblCurrentPlayer, lblNextPlayer };
 
                 for (int i = 0; ((i < names.Length) && (i < 10)); i++)
                 {
@@ -265,11 +256,13 @@ namespace Jeopardy
         {
             if (show)
             {
-                grpOrder.Visible = true;
+                lblCurrentPlayer.Visible = true;
+                lblNextPlayer.Visible = true;
             }
             else
             {
-                grpOrder.Visible = false;
+                lblCurrentPlayer.Visible = false;
+                lblNextPlayer.Visible = false;
             }
         }
 

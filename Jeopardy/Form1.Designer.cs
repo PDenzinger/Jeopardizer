@@ -135,6 +135,7 @@
             this.txtQuestion.Name = "txtQuestion";
             this.txtQuestion.Size = new System.Drawing.Size(230, 146);
             this.txtQuestion.TabIndex = 9;
+            this.txtQuestion.TextChanged += new System.EventHandler(this.txtQuestion_TextChanged);
             // 
             // txtAnswer
             // 
@@ -143,6 +144,7 @@
             this.txtAnswer.Name = "txtAnswer";
             this.txtAnswer.Size = new System.Drawing.Size(230, 122);
             this.txtAnswer.TabIndex = 10;
+            this.txtAnswer.TextChanged += new System.EventHandler(this.txtAnswer_TextChanged);
             // 
             // openFileDialog1
             // 

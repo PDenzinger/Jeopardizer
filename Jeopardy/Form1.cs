@@ -31,6 +31,10 @@ namespace Jeopardy
         //global variables to keep track of person answering
         volatile int gActivePlayer = -1;
 
+        //global variables to determine if the Question or Answer has changed
+        bool QChanged = false;
+        bool AChanged = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -184,6 +188,19 @@ namespace Jeopardy
 
         public void btnClicker(string[] question)
         {
+            Button clickedBtn = (Button)(grpBoardControl.Controls["btnQ" + question[1]]);
+            if (clickedBtn.BackColor != Color.Red)
+            {
+                //show button as red
+                clickedBtn.BackColor = Color.Red;
+            }
+            else
+            {
+                //reset button to gray
+                clickedBtn.BackColor = SystemColors.Control;
+                return;
+            }
+
             gLevel = question[0];
             gQuestion = question[1];
 
@@ -210,20 +227,12 @@ namespace Jeopardy
             txtQuestion.Text = Q;
             txtAnswer.Text = A;
 
-            Button clickedBtn = (Button)(grpBoardControl.Controls["btnQ"+question[1]]);
-            if (clickedBtn.BackColor != Color.Red)
-            {
-                clickedBtn.BackColor = Color.Red;
-            }
-            else
-            {
-                clickedBtn.BackColor = SystemColors.Control;
-            }
-
             if (QuestionForm.Visible)
             {
                 QuestionForm.UpdateScreenQA(Q, A);
                 QuestionForm.BtnToggle("btnQ" + question[1]);
+                QChanged = false;
+                AChanged = false;
             }
         }
 
@@ -236,8 +245,18 @@ namespace Jeopardy
 
         private void btnAnswer_Click(object sender, EventArgs e)
         {
+            //update the question if the text has changed
+            if (QChanged || AChanged)
+            {
+                QuestionForm.UpdateScreenQA(txtQuestion.Text, txtAnswer.Text);
+            }
+
             //click the answer button
             btnAnswer.BackColor = (QuestionForm.AnswerButton()) ? Color.Red : SystemColors.Control;
+
+            //reset question and answer change flags
+            QChanged = false;
+            AChanged = false;
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -691,6 +710,16 @@ namespace Jeopardy
                 QuestionForm.BlankScreen(true);
                 btnBlank.BackColor = Color.Red;
             }
+        }
+
+        private void txtQuestion_TextChanged(object sender, EventArgs e)
+        {
+            QChanged = true;
+        }
+
+        private void txtAnswer_TextChanged(object sender, EventArgs e)
+        {
+            AChanged = true;
         }
 
         
