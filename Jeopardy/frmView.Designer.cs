@@ -46,6 +46,8 @@
             this.score1 = new System.Windows.Forms.Label();
             this.lblCurrentPlayer = new System.Windows.Forms.Label();
             this.lblNextPlayer = new System.Windows.Forms.Label();
+            this.SampleHeading = new System.Windows.Forms.Label();
+            this.SampleQuestion = new System.Windows.Forms.Label();
             this.grpScores.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,7 +64,7 @@
             // 
             this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnNext.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNext.Location = new System.Drawing.Point(-1, 432);
+            this.btnNext.Location = new System.Drawing.Point(-1, 713);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(56, 28);
             this.btnNext.TabIndex = 1;
@@ -74,7 +76,7 @@
             // 
             this.btnAnswer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAnswer.Location = new System.Drawing.Point(788, 432);
+            this.btnAnswer.Location = new System.Drawing.Point(934, 713);
             this.btnAnswer.Name = "btnAnswer";
             this.btnAnswer.Size = new System.Drawing.Size(81, 28);
             this.btnAnswer.TabIndex = 2;
@@ -86,7 +88,7 @@
             // 
             this.lblAnswerPopup.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblAnswerPopup.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAnswerPopup.Location = new System.Drawing.Point(769, 397);
+            this.lblAnswerPopup.Location = new System.Drawing.Point(842, 678);
             this.lblAnswerPopup.Name = "lblAnswerPopup";
             this.lblAnswerPopup.Size = new System.Drawing.Size(17, 54);
             this.lblAnswerPopup.TabIndex = 3;
@@ -97,7 +99,7 @@
             this.lblTitle.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(94, 9);
+            this.lblTitle.Location = new System.Drawing.Point(167, 149);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(674, 73);
             this.lblTitle.TabIndex = 4;
@@ -107,7 +109,7 @@
             // 
             this.QPanel.Location = new System.Drawing.Point(12, 84);
             this.QPanel.Name = "QPanel";
-            this.QPanel.Size = new System.Drawing.Size(574, 310);
+            this.QPanel.Size = new System.Drawing.Size(813, 310);
             this.QPanel.TabIndex = 5;
             // 
             // HidePanel
@@ -238,18 +240,45 @@
             this.lblNextPlayer.AutoSize = true;
             this.lblNextPlayer.BackColor = System.Drawing.Color.Lime;
             this.lblNextPlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNextPlayer.Location = new System.Drawing.Point(800, -1);
+            this.lblNextPlayer.Location = new System.Drawing.Point(946, -1);
             this.lblNextPlayer.Name = "lblNextPlayer";
             this.lblNextPlayer.Size = new System.Drawing.Size(69, 73);
             this.lblNextPlayer.TabIndex = 12;
             this.lblNextPlayer.Text = "2";
             this.lblNextPlayer.Visible = false;
             // 
+            // SampleHeading
+            // 
+            this.SampleHeading.AutoSize = true;
+            this.SampleHeading.BackColor = System.Drawing.Color.Yellow;
+            this.SampleHeading.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SampleHeading.Location = new System.Drawing.Point(46, 480);
+            this.SampleHeading.Name = "SampleHeading";
+            this.SampleHeading.Size = new System.Drawing.Size(159, 24);
+            this.SampleHeading.TabIndex = 13;
+            this.SampleHeading.Text = "SampleHeading";
+            this.SampleHeading.Visible = false;
+            // 
+            // SampleQuestion
+            // 
+            this.SampleQuestion.AutoSize = true;
+            this.SampleQuestion.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.SampleQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SampleQuestion.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.SampleQuestion.Location = new System.Drawing.Point(321, 480);
+            this.SampleQuestion.Name = "SampleQuestion";
+            this.SampleQuestion.Size = new System.Drawing.Size(108, 55);
+            this.SampleQuestion.TabIndex = 14;
+            this.SampleQuestion.Text = "500";
+            this.SampleQuestion.Visible = false;
+            // 
             // frmView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(870, 460);
+            this.ClientSize = new System.Drawing.Size(1016, 741);
+            this.Controls.Add(this.SampleQuestion);
+            this.Controls.Add(this.SampleHeading);
             this.Controls.Add(this.lblNextPlayer);
             this.Controls.Add(this.lblCurrentPlayer);
             this.Controls.Add(this.grpScores);
@@ -290,5 +319,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblCurrentPlayer;
         private System.Windows.Forms.Label lblNextPlayer;
+        private System.Windows.Forms.Label SampleHeading;
+        private System.Windows.Forms.Label SampleQuestion;
     }
 }

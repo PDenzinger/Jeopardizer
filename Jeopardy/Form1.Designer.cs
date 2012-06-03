@@ -96,6 +96,7 @@
             this.btnBlank = new System.Windows.Forms.Button();
             this.nextLevelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.previousLevelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtCategory = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -132,7 +133,7 @@
             // 
             // txtQuestion
             // 
-            this.txtQuestion.Location = new System.Drawing.Point(421, 54);
+            this.txtQuestion.Location = new System.Drawing.Point(421, 81);
             this.txtQuestion.Multiline = true;
             this.txtQuestion.Name = "txtQuestion";
             this.txtQuestion.Size = new System.Drawing.Size(230, 146);
@@ -141,10 +142,10 @@
             // 
             // txtAnswer
             // 
-            this.txtAnswer.Location = new System.Drawing.Point(421, 203);
+            this.txtAnswer.Location = new System.Drawing.Point(421, 229);
             this.txtAnswer.Multiline = true;
             this.txtAnswer.Name = "txtAnswer";
-            this.txtAnswer.Size = new System.Drawing.Size(230, 122);
+            this.txtAnswer.Size = new System.Drawing.Size(230, 96);
             this.txtAnswer.TabIndex = 10;
             this.txtAnswer.TextChanged += new System.EventHandler(this.txtAnswer_TextChanged);
             // 
@@ -750,11 +751,20 @@
             this.previousLevelToolStripMenuItem.Text = "Previous Level";
             this.previousLevelToolStripMenuItem.Click += new System.EventHandler(this.previousLevelToolStripMenuItem_Click);
             // 
+            // txtCategory
+            // 
+            this.txtCategory.Location = new System.Drawing.Point(421, 52);
+            this.txtCategory.Multiline = true;
+            this.txtCategory.Name = "txtCategory";
+            this.txtCategory.Size = new System.Drawing.Size(230, 28);
+            this.txtCategory.TabIndex = 62;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(739, 480);
+            this.Controls.Add(this.txtCategory);
             this.Controls.Add(this.btnBlank);
             this.Controls.Add(this.score_p8_hlf);
             this.Controls.Add(this.score_p8_sub);
@@ -890,6 +900,7 @@
         private System.Windows.Forms.Button btnBlank;
         private System.Windows.Forms.ToolStripMenuItem nextLevelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem previousLevelToolStripMenuItem;
+        private System.Windows.Forms.TextBox txtCategory;
     }
 }
 

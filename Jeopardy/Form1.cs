@@ -24,9 +24,10 @@ namespace Jeopardy
         int gTimerDelay = 3000;
         int gBuzzerLength = 1000;
 
-        //global variables to keep track of the level/question
+        //global variables to keep track of the level/question/category
         string gLevel = "0";
         string gQuestion = "0";
+        string gCategory = "0";
 
         //global variables to keep track of person answering
         volatile int gActivePlayer = -1;
@@ -198,13 +199,18 @@ namespace Jeopardy
             {
                 //reset button to gray
                 clickedBtn.BackColor = SystemColors.Control;
+                if (QuestionForm.Visible)
+                {
+                    QuestionForm.BtnToggle("btnQ" + question[1]);
+                }
                 return;
             }
 
             gLevel = question[0];
             gQuestion = question[1];
+            gCategory = question[1].Substring(0,1);
 
-            string Q, A;
+            string Q, A, C;
 
             try
             {
@@ -224,12 +230,30 @@ namespace Jeopardy
                 A = "Answer Missing.";
             }
 
+            try
+            {
+                C = SettingsIni.IniReadValue("LEVEL" + question[0], "h" + gCategory);
+            }
+            catch
+            {
+                C = "";
+            }
+
             txtQuestion.Text = Q;
             txtAnswer.Text = A;
+            txtCategory.Text = C;
 
             if (QuestionForm.Visible)
             {
-                QuestionForm.UpdateScreenQA(Q, A);
+                if (C == "")
+                {
+                    QuestionForm.UpdateScreenQA(Q, A);
+                }
+                else
+                {
+                    QuestionForm.UpdateScreenQA(C, Q, A);
+                }
+
                 QuestionForm.BtnToggle("btnQ" + question[1]);
                 QChanged = false;
                 AChanged = false;
@@ -248,7 +272,14 @@ namespace Jeopardy
             //update the question if the text has changed
             if (QChanged || AChanged)
             {
-                QuestionForm.UpdateScreenQA(txtQuestion.Text, txtAnswer.Text);
+                if (txtCategory.Text == "")
+                {
+                    QuestionForm.UpdateScreenQA(txtQuestion.Text, txtAnswer.Text);
+                }
+                else
+                {
+                    QuestionForm.UpdateScreenQA(txtCategory.Text, txtQuestion.Text, txtAnswer.Text);
+                }
             }
 
             //click the answer button
@@ -340,6 +371,32 @@ namespace Jeopardy
             {
                 MessageBox.Show("The question and answer could not be saved.", "Save Failed");
             }
+        }
+
+        private void nextLevelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int num = int.Parse(gLevel) + 1;
+            int limit = int.Parse(SettingsIni.IniReadValue("MAIN", "level"));
+
+            if (num > limit)
+            {
+                num = limit;
+            }
+
+            PopulateScreen(num);
+        }
+
+        private void previousLevelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int num = int.Parse(gLevel) - 1;
+            int limit = int.Parse(SettingsIni.IniReadValue("MAIN", "level"));
+
+            if (num < 1)
+            {
+                num = 1;
+            }
+
+            PopulateScreen(num);
         }
 
         #endregion
@@ -722,32 +779,5 @@ namespace Jeopardy
             AChanged = true;
         }
 
-        private void nextLevelToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            int num = int.Parse(gLevel) + 1;
-            int limit = int.Parse(SettingsIni.IniReadValue("MAIN", "level"));
-            
-            if (num > limit)
-            {
-                num = limit;
-            }
-
-            PopulateScreen(num);
-        }
-
-        private void previousLevelToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            int num = int.Parse(gLevel) - 1;
-            int limit = int.Parse(SettingsIni.IniReadValue("MAIN", "level"));
-
-            if (num < 1)
-            {
-                num = 1;
-            }
-
-            PopulateScreen(num);
-        }
-
-        
     }
 }

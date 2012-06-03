@@ -37,7 +37,7 @@ namespace Jeopardy
             int Main_Yloc = this.Location.Y;
 
             lblTitle.Refresh();
-            lblTitle.Location = new Point((int)(this.Width*0.5 - lblTitle.Width*0.5),lblTitle.Location.Y);
+            lblTitle.Location = new Point((int)(this.Width*0.5 - lblTitle.Width*0.5), (int)(Main_Yloc + 1));
 
             QPanel.Location = new Point(Main_Xloc + 10, lblTitle.Location.Y + lblTitle.Height + 10);
             QPanel.Width = this.Width - 20;
@@ -62,19 +62,38 @@ namespace Jeopardy
             int catWidth = (int)((grpWidth - 20) / num_cat);
 
             //add new headings
+            int LabelHeight = 0;
             for (int i = 0; i < num_cat; i++)
             {
-                Label L = new Label();
+                GrowLabel L = new GrowLabel();
+                //Label L = new Label();
                 L.Name = "CatLabel" + i.ToString();
-                L.Size = new Size(catWidth, 30);
+                //L.Size = new Size(catWidth, 30);
+                L.Width = catWidth;
                 L.Location = new Point(grpLocation.X + (i * catWidth), 5);
                 L.Text = categoryNames[i];
                 L.TextAlign = ContentAlignment.MiddleCenter;
+                L.BackColor = SampleHeading.BackColor;
+                L.ForeColor = SampleHeading.ForeColor;
+                L.Font = SampleHeading.Font;
                 QPanel.Controls.Add(L);
+
+                //save max label height
+                if (LabelHeight < L.Height)
+                {
+                    LabelHeight = L.Height;
+                }
+            }
+
+            //adjust heights to match
+            for (int i = 0; i < num_cat; i++)
+            {
+                ((GrowLabel)QPanel.Controls["CatLabel" + i.ToString()]).AllowResize = false;
+                ((GrowLabel)QPanel.Controls["CatLabel" + i.ToString()]).Height = LabelHeight;
             }
 
             //add buttons
-            int btnHeight = (int)((grpHeight - 55) / num_qs);
+            int btnHeight = (int)((grpHeight - (20 + LabelHeight)) / num_qs);
             for (int i = 0; i < num_cat; i++)
             {
                 for (int j = 0; j < num_qs; j++)
@@ -82,9 +101,12 @@ namespace Jeopardy
                     Button B = new Button();
                     B.Name = "btnQ" + ((i + 1).ToString() + (j + 1).ToString()).ToString();
                     B.Size = new Size(catWidth, btnHeight);
-                    B.Location = new Point(grpLocation.X + (i * catWidth), 35 + (j * btnHeight));
+                    B.Location = new Point(grpLocation.X + (i * catWidth), LabelHeight + 5 + (j * btnHeight));
                     B.Text = ((j + 1) * base_value).ToString();
                     B.TextAlign = ContentAlignment.MiddleCenter;
+                    B.BackColor = SampleQuestion.BackColor;
+                    B.ForeColor = SampleQuestion.ForeColor;
+                    B.Font = SampleQuestion.Font;
                     B.Tag = new string[] { level.ToString(), (i + 1).ToString() + (j + 1).ToString() };
                     B.Click += new EventHandler(btnQ_Click);
                     QPanel.Controls.Add(B);
@@ -101,7 +123,7 @@ namespace Jeopardy
             }
             else
             {
-                clickedBtn.BackColor = SystemColors.Control;
+                clickedBtn.BackColor = SampleQuestion.BackColor;
             }
         }
 
@@ -149,11 +171,40 @@ namespace Jeopardy
             lblAnswerPopup.Visible = false;
             lblAnswerPopup.Text = answer;
 
-            string documentText = "<html><body><table style='height:80%;width:100%'><tr><td valign='middle'><div id='question' ><h1 align='center'><big>";
+            string documentText = "<html><body><table cellpadding='0' cellspacing='0' style='height:90%;width:100%'>";
+            documentText += "<tr height='80%'><td valign='middle'><div id='question' ><h1 align='center'><big>";
             documentText += question;
-            documentText += "</big></h1></div></td></tr></table><div id='answer' style='display:none'><h1>";
+            documentText += "</big></h1></div></td></tr>";
+            documentText += "<tr height='20%'><td><div id='answer' style='display:none'><h1>";
             documentText += answer;
-            documentText += "</h1></div></body></html>";
+            documentText += "</h1></div></td></tr></table></body></html>";
+            ChangeDocument(documentText, 1000);
+
+            webBrowser1.Document.GetElementById("answer").Style = "display:none";
+
+            webBrowser1.Visible = true;
+            QPanel.Visible = false;
+
+            btnAnswer.Visible = true;
+            btnNext.Visible = true;
+        }
+
+        public void UpdateScreenQA(string category, string question, string answer)
+        {
+            //create question text
+            lblAnswerPopup.Visible = false;
+            lblAnswerPopup.Text = answer;
+
+            string documentText = "<html><body><table cellpadding='0' cellspacing='0' style='height:90%;width:100%'>";
+            documentText += "<tr height='10%'><td valign='middle'><div id='category'><font color='red'><h2 align='center'>";
+            documentText += category;
+            documentText += "</h2></font></div></td></tr>";
+            documentText += "<tr height='80%'><td valign='middle'><div id='question' ><h1 align='center'><big>";
+            documentText += question;
+            documentText += "</big></h1></div></td></tr>";
+            documentText += "<tr height='10%'><td><div id='answer' style='display:none'><h1>";
+            documentText += answer;
+            documentText += "</h1></div></td></tr></table></body></html>";
             ChangeDocument(documentText, 1000);
 
             webBrowser1.Document.GetElementById("answer").Style = "display:none";
