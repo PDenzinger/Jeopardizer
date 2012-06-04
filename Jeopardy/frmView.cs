@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Jeopardy
 {
@@ -26,6 +27,26 @@ namespace Jeopardy
             btnAnswer.Visible = false;
             btnNext.Visible = false;
             webBrowser1.Visible = false;
+            grpScores.Visible = false;
+        }
+
+        private void UpdateHidePanelImg()
+        {
+            string iniPath = Directory.GetParent(mainform.SettingsIni.path).ToString();
+            string imagePath;
+
+            try
+            {
+                imagePath = mainform.SettingsIni.IniReadValue("MAIN", "BlankImage");
+                if ((imagePath != "") && (imagePath.ToLower() != "false"))
+                {
+                    HidePanel.BackgroundImage = Image.FromFile(iniPath + "/" + imagePath);
+                }
+            }
+            catch
+            {
+                //do nothing if we cannot load the image
+            }
         }
 
         public void PopulateSelectionScreen(string title, string[] categoryNames, int num_questions, int base_value, int level)
@@ -41,12 +62,13 @@ namespace Jeopardy
 
             QPanel.Location = new Point(Main_Xloc + 10, lblTitle.Location.Y + lblTitle.Height + 10);
             QPanel.Width = this.Width - 20;
-            QPanel.Height = this.Height - QPanel.Location.Y - 10;
+            QPanel.Height = this.Height - QPanel.Location.Y - (grpScores.Height);
 
             //hide panel blanks the screen
             HidePanel.Location = this.Location;
             HidePanel.Width = this.Width;
             HidePanel.Height = this.Height;
+            HidePanel.BringToFront();
 
             //remove any old items in the groupbox
             QPanel.Controls.Clear();
@@ -73,6 +95,7 @@ namespace Jeopardy
                 L.Location = new Point(grpLocation.X + (i * catWidth), 5);
                 L.Text = categoryNames[i];
                 L.TextAlign = ContentAlignment.MiddleCenter;
+                L.BorderStyle = SampleHeading.BorderStyle;
                 L.BackColor = SampleHeading.BackColor;
                 L.ForeColor = SampleHeading.ForeColor;
                 L.Font = SampleHeading.Font;
@@ -112,6 +135,21 @@ namespace Jeopardy
                     QPanel.Controls.Add(B);
                 }
             }
+
+            //add scores
+            int scoreWidth = (int)(this.Width / 8);
+            int scoreHeight = grpScores.Height - 4;
+            grpScores.Width = this.Width;
+            grpScores.Location = new Point(this.Location.X,QPanel.Location.Y + QPanel.Height);
+            for (int i = 1; i <= 8; i++)
+            {
+                grpScores.Controls["score" + i.ToString()].Width = scoreWidth;
+                grpScores.Controls["score" + i.ToString()].Location = new Point((i-1)*scoreWidth,2);
+                grpScores.Controls["score" + i.ToString()].Height = scoreHeight;
+            }
+            grpScores.Visible = true;
+
+            UpdateHidePanelImg();
         }
 
         public void BtnToggle(string name)
@@ -184,6 +222,7 @@ namespace Jeopardy
 
             webBrowser1.Visible = true;
             QPanel.Visible = false;
+            grpScores.Visible = false;
 
             btnAnswer.Visible = true;
             btnNext.Visible = true;
@@ -211,6 +250,7 @@ namespace Jeopardy
 
             webBrowser1.Visible = true;
             QPanel.Visible = false;
+            grpScores.Visible = false;
 
             btnAnswer.Visible = true;
             btnNext.Visible = true;
@@ -257,6 +297,7 @@ namespace Jeopardy
             btnNext.Visible = false;
             btnAnswer.Visible = false;
             webBrowser1.Visible = false;
+            grpScores.Visible = true;
         }
 
         public void UpdateOrder(string[] names, Color[] colors)
@@ -343,11 +384,38 @@ namespace Jeopardy
                 HidePanel.Location = new Point(0, 0);
                 HidePanel.Width = this.Width;
                 HidePanel.Height = this.Height;
+                HidePanel.BringToFront();
                 HidePanel.Visible = true;
             }
             else
             {
                 HidePanel.Visible = false;
+            }
+        }
+
+        public void UpdateScores(string[] scores)
+        {   //update scores based on a string array
+            //find largest score
+            int maxScore = 0;
+            for (int i = 0; (i < scores.Length) && (i < 8); i++)
+            {
+                if ((int)(double.Parse(scores[i])) > maxScore)
+                {
+                    maxScore = (int)(double.Parse(scores[i]));
+                }
+            }
+
+            for (int i = 0; (i < scores.Length) && (i < 8); i++)
+            {
+                ((Label)(grpScores.Controls["score" + (i + 1).ToString()])).Text = scores[i];
+                if ((int)(double.Parse(scores[i])) == maxScore)
+                {
+                    ((Label)(grpScores.Controls["score" + (i + 1).ToString()])).BorderStyle = BorderStyle.FixedSingle;
+                }
+                else
+                {
+                    ((Label)(grpScores.Controls["score" + (i + 1).ToString()])).BorderStyle = BorderStyle.None;
+                }
             }
         }
 

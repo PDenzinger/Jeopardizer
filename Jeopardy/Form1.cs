@@ -17,7 +17,7 @@ namespace Jeopardy
     public partial class Form1 : Form
     {
         frmView QuestionForm;
-        IniFile SettingsIni;
+        public IniFile SettingsIni;
 
         //global settings:
         //buzzer related (time in ms)
@@ -187,7 +187,9 @@ namespace Jeopardy
                 }
             }
 
-            if (QuestionForm.Visible == true)
+            grpBoardControl.Text = jeo_title;
+
+            if (QuestionForm.Visible)
             {
                 QuestionForm.PopulateSelectionScreen(jeo_title, categoryNames, num_qs, base_value, level);
             }
@@ -384,7 +386,7 @@ namespace Jeopardy
         private void nextLevelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int num = int.Parse(gLevel) + 1;
-            int limit = int.Parse(SettingsIni.IniReadValue("MAIN", "level"));
+            int limit = int.Parse(SettingsIni.IniReadValue("MAIN", "levels"));
 
             if (num > limit)
             {
@@ -397,7 +399,7 @@ namespace Jeopardy
         private void previousLevelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int num = int.Parse(gLevel) - 1;
-            int limit = int.Parse(SettingsIni.IniReadValue("MAIN", "level"));
+            int limit = int.Parse(SettingsIni.IniReadValue("MAIN", "levels"));
 
             if (num < 1)
             {
@@ -798,7 +800,13 @@ namespace Jeopardy
 
         private void ScoreChanged(object sender, EventArgs e)
         {   //event handler for tracking score textbox changes
-
+            if (QuestionForm.Visible)
+            {
+                QuestionForm.UpdateScores(
+                    new String[] { txtScore1.Text, txtScore2.Text, 
+                txtScore3.Text, txtScore4.Text, txtScore5.Text, 
+                txtScore6.Text, txtScore7.Text, txtScore8.Text, });
+            }
         }
 
         #endregion
