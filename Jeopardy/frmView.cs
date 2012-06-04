@@ -263,12 +263,21 @@ namespace Jeopardy
         {
             if ((names.Length == colors.Length)&&(names.Length > 0)&&(names.Length<11))
             {
+                //begin with them invisible
+                lblCurrentPlayer.Visible = false;
+                lblNextPlayer.Visible = false;
+
                 Label[] AnswerLabels = new Label[] { lblCurrentPlayer, lblNextPlayer };
 
-                for (int i = 0; ((i < names.Length) && (i < 10)); i++)
+                //current display allows for two answer positions
+                for (int i = 0; ((i < names.Length) && (i < 2)); i++)
                 {
-                    AnswerLabels[i].BackColor = colors[i];
-                    AnswerLabels[i].Text = names[i];
+                    if (names[i] != "")
+                    {
+                        AnswerLabels[i].BackColor = colors[i];
+                        AnswerLabels[i].Text = names[i];
+                        AnswerLabels[i].Visible = true;
+                    }
                 }
             }
         }

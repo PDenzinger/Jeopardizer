@@ -53,34 +53,42 @@ namespace Jeopardy
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            //reset standard lock bits
-            dF1Comm1.WriteData("B3:10/0",0);
-            dF1Comm1.WriteData("B3:0", 0);
-            dF1Comm1.WriteData("B3:14", 0);
+            if (chkPLC.Checked)
+            {
+                //reset standard lock bits
+                dF1Comm1.WriteData("B3:10/0", 0);
+                dF1Comm1.WriteData("B3:0", 0);
+                dF1Comm1.WriteData("B3:14", 0);
 
-            //reset order accumulator
-            dF1Comm1.WriteData("C5:0.ACC", 0);
+                //reset order accumulator
+                dF1Comm1.WriteData("C5:0.ACC", 0);
 
-            //reset player order locks
-            dF1Comm1.WriteData("N7:0", 0);
-            dF1Comm1.WriteData("N7:1", 0);
-            dF1Comm1.WriteData("N7:2", 0);
-            dF1Comm1.WriteData("N7:3", 0);
-            dF1Comm1.WriteData("N7:4", 0);
-            dF1Comm1.WriteData("N7:5", 0);
-            dF1Comm1.WriteData("N7:6", 0);
-            dF1Comm1.WriteData("N7:7", 0);
-            dF1Comm1.WriteData("N7:8", 0);
-            dF1Comm1.WriteData("N7:9", 0);
+                //reset player order locks
+                dF1Comm1.WriteData("N7:0", 0);
+                dF1Comm1.WriteData("N7:1", 0);
+                dF1Comm1.WriteData("N7:2", 0);
+                dF1Comm1.WriteData("N7:3", 0);
+                dF1Comm1.WriteData("N7:4", 0);
+                dF1Comm1.WriteData("N7:5", 0);
+                dF1Comm1.WriteData("N7:6", 0);
+                dF1Comm1.WriteData("N7:7", 0);
+                dF1Comm1.WriteData("N7:8", 0);
+                dF1Comm1.WriteData("N7:9", 0);
 
-            //stop software timer
-            StopTimer();
+                //stop software timer
+                StopTimer();
 
-            //stop buzzer
-            BuzzerStop();
+                //stop buzzer
+                BuzzerStop();
 
-            //read PLC memory
-            PLC_Read();
+                //read PLC memory
+                PLC_Read();
+            }
+            else
+            {
+                listOrder.Items.Clear();
+                SendListUpdate(listOrder);
+            }
         }
 
         private void view_mon(int index, Form SendForm)
@@ -399,6 +407,42 @@ namespace Jeopardy
             PopulateScreen(num);
         }
 
+        private void numberNamesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtPlayer1.Text = "1";
+            txtPlayer2.Text = "2";
+            txtPlayer3.Text = "3";
+            txtPlayer4.Text = "4";
+            txtPlayer5.Text = "5";
+            txtPlayer6.Text = "6";
+            txtPlayer7.Text = "7";
+            txtPlayer8.Text = "8";
+        }
+
+        private void teamNamesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtPlayer1.Text = "Team 1";
+            txtPlayer2.Text = "Team 2";
+            txtPlayer3.Text = "Team 3";
+            txtPlayer4.Text = "Team 4";
+            txtPlayer5.Text = "Team 5";
+            txtPlayer6.Text = "Team 6";
+            txtPlayer7.Text = "Team 7";
+            txtPlayer8.Text = "Team 8";
+        }
+
+        private void playerNamesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtPlayer1.Text = "Player 1";
+            txtPlayer2.Text = "Player 2";
+            txtPlayer3.Text = "Player 3";
+            txtPlayer4.Text = "Player 4";
+            txtPlayer5.Text = "Player 5";
+            txtPlayer6.Text = "Player 6";
+            txtPlayer7.Text = "Player 7";
+            txtPlayer8.Text = "Player 8";
+        }
+
         #endregion
 
         #region PLCFunctions
@@ -438,47 +482,51 @@ namespace Jeopardy
 
         private void PLC_Read()
         {
-            int[] OrderStatus = dF1Comm1.ReadInt("N7:0", 9);
-
-            int nonZeros = OrderStatus.Count(x => x > 0);
-            int adjust = OrderStatus.Max() - nonZeros;
-            for (int i = 0; i < OrderStatus.Length; i++)
+            if (chkPLC.Checked)
             {
-                OrderStatus[i] = OrderStatus[i] - adjust;
-            }
+                int[] OrderStatus = dF1Comm1.ReadInt("N7:0", 9);
 
-            if (OrderStatus.Max() > 0)
-            {
-                //int[] PlayerOrder = new int[OrderStatus.Count(x => x>0)];
-                int[] PlayerOrder = new int[OrderStatus.Max()];
-
-                //fill PlayerOrder list with a list of the players, in the order they buzzed in
+                int nonZeros = OrderStatus.Count(x => x > 0);
+                int adjust = OrderStatus.Max() - nonZeros;
                 for (int i = 0; i < OrderStatus.Length; i++)
                 {
-                    if (OrderStatus[i] > 0)
-                    {
-                        PlayerOrder[OrderStatus[i] - 1] = i;
-                    }
+                    OrderStatus[i] = OrderStatus[i] - adjust;
                 }
 
-                //read player names
-                string[] players = new string[]{txtPlayer1.Text,txtPlayer2.Text,txtPlayer3.Text,txtPlayer4.Text,
+                if (OrderStatus.Max() > 0)
+                {
+                    //int[] PlayerOrder = new int[OrderStatus.Count(x => x>0)];
+                    int[] PlayerOrder = new int[OrderStatus.Max()];
+
+                    //fill PlayerOrder list with a list of the players, in the order they buzzed in
+                    for (int i = 0; i < OrderStatus.Length; i++)
+                    {
+                        if (OrderStatus[i] > 0)
+                        {
+                            PlayerOrder[OrderStatus[i] - 1] = i;
+                        }
+                    }
+
+                    //read player names
+                    string[] players = new string[]{txtPlayer1.Text,txtPlayer2.Text,txtPlayer3.Text,txtPlayer4.Text,
                     txtPlayer5.Text,txtPlayer6.Text,txtPlayer7.Text,txtPlayer8.Text,"Feud 1","Feud 2"};
 
-                //fill a list box with this info
-                listOrder.Items.Clear();
-                for (int i = 0; i < PlayerOrder.Length; i++)
-                {
-                    listOrder.Items.Add(PlayerOrder[i].ToString() + ", " + players[PlayerOrder[i]]);
-                }
+                    //fill a list box with this info
+                    listOrder.Items.Clear();
+                    for (int i = 0; i < PlayerOrder.Length; i++)
+                    {
+                        listOrder.Items.Add(PlayerOrder[i].ToString() + ", " + players[PlayerOrder[i]]);
+                    }
 
-                UpdateActivePlayer(PlayerOrder[0], true);
+                    UpdateActivePlayer(PlayerOrder[0], true);
+                }
+                else
+                {
+                    listOrder.Items.Clear();
+                    UpdateActivePlayer(-1, false);
+                }
             }
-            else
-            {
-                listOrder.Items.Clear();
-                UpdateActivePlayer(-1, false);
-            }
+
         }
 
         private void chkPLC_CheckedChanged(object sender, EventArgs e)
@@ -777,6 +825,18 @@ namespace Jeopardy
         private void txtAnswer_TextChanged(object sender, EventArgs e)
         {
             AChanged = true;
+        }
+
+        private void test1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listOrder.Items.Add("0, hello");
+            SendListUpdate(listOrder);
+        }
+
+        private void test2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listOrder.Items.Add("1, hello");
+            SendListUpdate(listOrder);
         }
 
     }

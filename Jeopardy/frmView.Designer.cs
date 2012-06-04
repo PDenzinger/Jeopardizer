@@ -236,11 +236,11 @@
             // 
             // lblNextPlayer
             // 
-            this.lblNextPlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNextPlayer.AutoSize = true;
             this.lblNextPlayer.BackColor = System.Drawing.Color.Lime;
+            this.lblNextPlayer.Dock = System.Windows.Forms.DockStyle.Right;
             this.lblNextPlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNextPlayer.Location = new System.Drawing.Point(946, -1);
+            this.lblNextPlayer.Location = new System.Drawing.Point(947, 0);
             this.lblNextPlayer.Name = "lblNextPlayer";
             this.lblNextPlayer.Size = new System.Drawing.Size(69, 73);
             this.lblNextPlayer.TabIndex = 12;
