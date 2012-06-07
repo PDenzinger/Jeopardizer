@@ -419,5 +419,9 @@ namespace Jeopardy
             }
         }
 
+        public void RefreshBrowser()
+        {
+            webBrowser1.Refresh();
+        }
     }
 }

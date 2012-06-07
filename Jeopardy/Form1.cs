@@ -847,5 +847,10 @@ namespace Jeopardy
             SendListUpdate(listOrder);
         }
 
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            QuestionForm.RefreshBrowser();
+        }
+
     }
 }
