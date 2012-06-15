@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.IO;
 using System.IO.Ports;
 using System.Collections;
 using DF1Comm;
@@ -36,14 +37,37 @@ namespace Jeopardy
         bool QChanged = false;
         bool AChanged = false;
 
+        //temp file location
+        public string tempfile = "";
+
         public Form1()
         {
+            //get location of temp file (and make file)
+            tempfile = Path.Combine(Path.GetTempPath(), "jeopardizertemp.html");
+
+            try
+            {
+                File.WriteAllText(tempfile, "");
+            }
+            catch
+            {
+                //do nothing
+            }
+
             InitializeComponent();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             closing();
+        }
+
+        private void closing()
+        {
+            if (File.Exists(tempfile))
+            {
+                File.Delete(tempfile);
+            }
         }
 
         private void closing()
