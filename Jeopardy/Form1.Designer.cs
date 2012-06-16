@@ -106,6 +106,11 @@
             this.txtCategory = new System.Windows.Forms.TextBox();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.showTitleImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hidePanelLayoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.centerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stretchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -260,6 +265,7 @@
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showTitleImageToolStripMenuItem,
+            this.hidePanelLayoutToolStripMenuItem,
             this.toggleViewScreenToolStripMenuItem,
             this.refreshAvailableDisplaysToolStripMenuItem,
             this.sendToToolStripMenuItem});
@@ -842,6 +848,45 @@
             this.showTitleImageToolStripMenuItem.Text = "Show Title Image";
             this.showTitleImageToolStripMenuItem.Click += new System.EventHandler(this.showTitleImageToolStripMenuItem_Click);
             // 
+            // hidePanelLayoutToolStripMenuItem
+            // 
+            this.hidePanelLayoutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.centerToolStripMenuItem,
+            this.stretchToolStripMenuItem,
+            this.zoomToolStripMenuItem,
+            this.tileToolStripMenuItem});
+            this.hidePanelLayoutToolStripMenuItem.Name = "hidePanelLayoutToolStripMenuItem";
+            this.hidePanelLayoutToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.hidePanelLayoutToolStripMenuItem.Text = "HidePanel Layout";
+            // 
+            // centerToolStripMenuItem
+            // 
+            this.centerToolStripMenuItem.Name = "centerToolStripMenuItem";
+            this.centerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.centerToolStripMenuItem.Text = "Center";
+            this.centerToolStripMenuItem.Click += new System.EventHandler(this.centerToolStripMenuItem_Click);
+            // 
+            // stretchToolStripMenuItem
+            // 
+            this.stretchToolStripMenuItem.Name = "stretchToolStripMenuItem";
+            this.stretchToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.stretchToolStripMenuItem.Text = "Stretch";
+            this.stretchToolStripMenuItem.Click += new System.EventHandler(this.stretchToolStripMenuItem_Click);
+            // 
+            // zoomToolStripMenuItem
+            // 
+            this.zoomToolStripMenuItem.Name = "zoomToolStripMenuItem";
+            this.zoomToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.zoomToolStripMenuItem.Text = "Zoom";
+            this.zoomToolStripMenuItem.Click += new System.EventHandler(this.zoomToolStripMenuItem_Click);
+            // 
+            // tileToolStripMenuItem
+            // 
+            this.tileToolStripMenuItem.Name = "tileToolStripMenuItem";
+            this.tileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.tileToolStripMenuItem.Text = "Tile";
+            this.tileToolStripMenuItem.Click += new System.EventHandler(this.tileToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -994,6 +1039,11 @@
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.ToolStripMenuItem toggleViewScreenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showTitleImageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hidePanelLayoutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem centerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stretchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zoomToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tileToolStripMenuItem;
     }
 }
 

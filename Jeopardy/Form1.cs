@@ -481,6 +481,54 @@ namespace Jeopardy
             }
         }
 
+        private void test1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listOrder.Items.Add("0, hello");
+            SendListUpdate(listOrder);
+        }
+
+        private void test2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listOrder.Items.Add("1, hello");
+            SendListUpdate(listOrder);
+        }
+
+        #region HidePanelLayout
+
+        private void centerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (QuestionForm.Visible)
+            {
+                QuestionForm.ChangeHidePanelLayout(ImageLayout.Center);
+            }
+        }
+
+        private void stretchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (QuestionForm.Visible)
+            {
+                QuestionForm.ChangeHidePanelLayout(ImageLayout.Stretch);
+            }
+        }
+
+        private void zoomToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (QuestionForm.Visible)
+            {
+                QuestionForm.ChangeHidePanelLayout(ImageLayout.Zoom);
+            }
+        }
+
+        private void tileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (QuestionForm.Visible)
+            {
+                QuestionForm.ChangeHidePanelLayout(ImageLayout.Tile);
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region PLCFunctions
@@ -869,18 +917,6 @@ namespace Jeopardy
         private void txtAnswer_TextChanged(object sender, EventArgs e)
         {
             AChanged = true;
-        }
-
-        private void test1ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            listOrder.Items.Add("0, hello");
-            SendListUpdate(listOrder);
-        }
-
-        private void test2ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            listOrder.Items.Add("1, hello");
-            SendListUpdate(listOrder);
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)

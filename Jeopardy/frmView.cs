@@ -443,5 +443,10 @@ namespace Jeopardy
         {
             webBrowser1.Refresh();
         }
+
+        public void ChangeHidePanelLayout(ImageLayout layout)
+        {
+            HidePanel.BackgroundImageLayout = layout;
+        }
     }
 }
