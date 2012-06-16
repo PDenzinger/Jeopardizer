@@ -37,6 +37,7 @@
             this.HidePanel = new System.Windows.Forms.Panel();
             this.timerBar = new CustomPbar.Pbar();
             this.grpScores = new System.Windows.Forms.GroupBox();
+            this.score8 = new System.Windows.Forms.Label();
             this.score7 = new System.Windows.Forms.Label();
             this.score6 = new System.Windows.Forms.Label();
             this.score5 = new System.Windows.Forms.Label();
@@ -48,7 +49,6 @@
             this.lblNextPlayer = new System.Windows.Forms.Label();
             this.SampleHeading = new System.Windows.Forms.Label();
             this.SampleQuestion = new System.Windows.Forms.Label();
-            this.score8 = new System.Windows.Forms.Label();
             this.grpScores.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -153,6 +153,17 @@
             this.grpScores.TabStop = false;
             this.grpScores.Text = "Scores";
             this.grpScores.Visible = false;
+            // 
+            // score8
+            // 
+            this.score8.BackColor = System.Drawing.Color.Silver;
+            this.score8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.score8.Location = new System.Drawing.Point(804, 15);
+            this.score8.Name = "score8";
+            this.score8.Size = new System.Drawing.Size(108, 28);
+            this.score8.TabIndex = 8;
+            this.score8.Text = "0";
+            this.score8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // score7
             // 
@@ -281,17 +292,6 @@
             this.SampleQuestion.TabIndex = 14;
             this.SampleQuestion.Text = "500";
             this.SampleQuestion.Visible = false;
-            // 
-            // score8
-            // 
-            this.score8.BackColor = System.Drawing.Color.Silver;
-            this.score8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.score8.Location = new System.Drawing.Point(804, 15);
-            this.score8.Name = "score8";
-            this.score8.Size = new System.Drawing.Size(108, 28);
-            this.score8.TabIndex = 8;
-            this.score8.Text = "0";
-            this.score8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmView
             // 

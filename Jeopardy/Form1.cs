@@ -42,18 +42,6 @@ namespace Jeopardy
 
         public Form1()
         {
-            //get location of temp file (and make file)
-            tempfile = Path.Combine(Path.GetTempPath(), "jeopardizertemp.html");
-
-            try
-            {
-                File.WriteAllText(tempfile, "");
-            }
-            catch
-            {
-                //do nothing
-            }
-
             InitializeComponent();
         }
 
@@ -64,15 +52,13 @@ namespace Jeopardy
 
         private void closing()
         {
-            if (File.Exists(tempfile))
+            if (tempfile != "")
             {
-                File.Delete(tempfile);
+                if (File.Exists(tempfile))
+                {
+                    File.Delete(tempfile);
+                }
             }
-        }
-
-        private void closing()
-        {
-            //TODO: make closing function
         }
 
         private void btnReset_Click(object sender, EventArgs e)
@@ -390,6 +376,19 @@ namespace Jeopardy
                 catch
                 {
                     MessageBox.Show("The file is not valid.", "File Error");
+                    return;
+                }
+
+                //get location of temp file (and make file)
+                tempfile = Path.Combine(Path.GetDirectoryName(SettingsIni.path), "jeopardizertemp.html");
+
+                try
+                {
+                    File.WriteAllText(tempfile, "");
+                }
+                catch
+                {
+                    //do nothing
                 }
             }
         }
@@ -874,6 +873,11 @@ namespace Jeopardy
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             QuestionForm.RefreshBrowser();
+        }
+
+        private void toggleViewScreenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            QuestionForm.Visible = !QuestionForm.Visible;
         }
 
     }
