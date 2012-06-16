@@ -446,10 +446,7 @@ namespace Jeopardy
 
         public void ChangeHidePanelLayout(ImageLayout layout)
         {
-            if (HidePanel.Visible)
-            {
-                HidePanel.BackgroundImageLayout = layout;
-            }
+            HidePanel.BackgroundImageLayout = layout;
         }
     }
 }
