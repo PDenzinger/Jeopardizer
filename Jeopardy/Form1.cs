@@ -468,6 +468,19 @@ namespace Jeopardy
             txtPlayer8.Text = "Player 8";
         }
 
+        private void toggleViewScreenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            QuestionForm.Visible = !QuestionForm.Visible;
+        }
+
+        private void showTitleImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (QuestionForm.Visible)
+            {
+                QuestionForm.ShowTitle(true);
+            }
+        }
+
         #endregion
 
         #region PLCFunctions
@@ -874,11 +887,5 @@ namespace Jeopardy
         {
             QuestionForm.RefreshBrowser();
         }
-
-        private void toggleViewScreenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            QuestionForm.Visible = !QuestionForm.Visible;
-        }
-
     }
 }

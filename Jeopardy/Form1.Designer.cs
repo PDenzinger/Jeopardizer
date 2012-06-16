@@ -47,6 +47,7 @@
             this.teamNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playerNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toggleViewScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshAvailableDisplaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -104,7 +105,7 @@
             this.btnBlank = new System.Windows.Forms.Button();
             this.txtCategory = new System.Windows.Forms.TextBox();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.toggleViewScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showTitleImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -258,12 +259,20 @@
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showTitleImageToolStripMenuItem,
             this.toggleViewScreenToolStripMenuItem,
             this.refreshAvailableDisplaysToolStripMenuItem,
             this.sendToToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.viewToolStripMenuItem.Text = "&View";
+            // 
+            // toggleViewScreenToolStripMenuItem
+            // 
+            this.toggleViewScreenToolStripMenuItem.Name = "toggleViewScreenToolStripMenuItem";
+            this.toggleViewScreenToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.toggleViewScreenToolStripMenuItem.Text = "Toggle ViewScreen";
+            this.toggleViewScreenToolStripMenuItem.Click += new System.EventHandler(this.toggleViewScreenToolStripMenuItem_Click);
             // 
             // refreshAvailableDisplaysToolStripMenuItem
             // 
@@ -826,12 +835,12 @@
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // toggleViewScreenToolStripMenuItem
+            // showTitleImageToolStripMenuItem
             // 
-            this.toggleViewScreenToolStripMenuItem.Name = "toggleViewScreenToolStripMenuItem";
-            this.toggleViewScreenToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
-            this.toggleViewScreenToolStripMenuItem.Text = "Toggle ViewScreen";
-            this.toggleViewScreenToolStripMenuItem.Click += new System.EventHandler(this.toggleViewScreenToolStripMenuItem_Click);
+            this.showTitleImageToolStripMenuItem.Name = "showTitleImageToolStripMenuItem";
+            this.showTitleImageToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.showTitleImageToolStripMenuItem.Text = "Show Title Image";
+            this.showTitleImageToolStripMenuItem.Click += new System.EventHandler(this.showTitleImageToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -984,6 +993,7 @@
         private System.Windows.Forms.ToolStripMenuItem playerNamesToolStripMenuItem;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.ToolStripMenuItem toggleViewScreenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showTitleImageToolStripMenuItem;
     }
 }
 

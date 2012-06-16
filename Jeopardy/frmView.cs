@@ -30,23 +30,46 @@ namespace Jeopardy
             grpScores.Visible = false;
         }
 
-        private void UpdateHidePanelImg()
+        public void UpdateHidePanelImg(bool title)
         {
-            string iniPath = Directory.GetParent(mainform.SettingsIni.path).ToString();
             string imagePath;
 
             try
             {
-                imagePath = mainform.SettingsIni.IniReadValue("MAIN", "BlankImage");
+                if (title)
+                {   //load title image
+                    imagePath = mainform.SettingsIni.IniReadValue("MAIN", "TitleImage");
+                }
+                else
+                {   //load hide-panel image
+                    imagePath = mainform.SettingsIni.IniReadValue("MAIN", "BlankImage");
+                }
+
                 if ((imagePath != "") && (imagePath.ToLower() != "false"))
                 {
-                    HidePanel.BackgroundImage = Image.FromFile(iniPath + "/" + imagePath);
+                    HidePanel.BackgroundImage = Image.FromFile(getPath(imagePath));
                 }
             }
             catch
             {
                 //do nothing if we cannot load the image
             }
+        }
+
+        private string getPath(string imgPath)
+        {   //get an absolute path for the image based on ini file location
+            string iniPath = Directory.GetParent(mainform.SettingsIni.path).ToString();
+            string output = "";
+            if (imgPath.Contains(":"))
+            {
+                //path is already absolute
+                output = imgPath;
+            }
+            else
+            {
+                output = Path.Combine(iniPath, imgPath);
+            }
+            return output;
         }
 
         public void PopulateSelectionScreen(string title, string[] categoryNames, int num_questions, int base_value, int level)
@@ -149,7 +172,7 @@ namespace Jeopardy
             }
             grpScores.Visible = true;
             webBrowser1.Visible = false;
-            UpdateHidePanelImg();
+            ShowTitle(true);
         }
 
         public void BtnToggle(string name)
@@ -329,10 +352,31 @@ namespace Jeopardy
         {
             if (hide)
             {
-                HidePanel.Visible = true;
+                UpdateHidePanelImg(false);
+                HidePanel.Location = new Point(0, 0);
+                HidePanel.Width = this.Width;
+                HidePanel.Height = this.Height;
                 HidePanel.BringToFront();
+                HidePanel.Visible = true;
                 btnAnswer.BringToFront();
                 btnNext.BringToFront();
+            }
+            else
+            {
+                HidePanel.Visible = false;
+            }
+        }
+
+        public void ShowTitle(bool hide)
+        {
+            if (hide)
+            {
+                UpdateHidePanelImg(true);
+                HidePanel.Location = new Point(0, 0);
+                HidePanel.Width = this.Width;
+                HidePanel.Height = this.Height;
+                HidePanel.BringToFront();
+                HidePanel.Visible = true;
             }
             else
             {
@@ -366,18 +410,7 @@ namespace Jeopardy
 
         public void BlankScreen(bool hide)
         {
-            if (hide)
-            {
-                HidePanel.Location = new Point(0, 0);
-                HidePanel.Width = this.Width;
-                HidePanel.Height = this.Height;
-                HidePanel.BringToFront();
-                HidePanel.Visible = true;
-            }
-            else
-            {
-                HidePanel.Visible = false;
-            }
+            HideScreen(hide);
         }
 
         public void UpdateScores(string[] scores)
