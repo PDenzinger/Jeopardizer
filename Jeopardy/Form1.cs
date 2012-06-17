@@ -265,7 +265,7 @@ namespace Jeopardy
 
             if (QuestionForm.Visible)
             {
-                if (C == "")
+                if ((C == "")||(!showCategoryToolStripMenuItem.Checked))
                 {
                     QuestionForm.UpdateScreenQA(Q, A);
                 }
@@ -292,7 +292,7 @@ namespace Jeopardy
             //update the question if the text has changed
             if (QChanged || AChanged)
             {
-                if (txtCategory.Text == "")
+                if ((txtCategory.Text == "")||(!showCategoryToolStripMenuItem.Checked))
                 {
                     QuestionForm.UpdateScreenQA(txtQuestion.Text, txtAnswer.Text);
                 }
@@ -368,6 +368,11 @@ namespace Jeopardy
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                if (QuestionForm.Visible)
+                {   //re-initialize the title-shown variable every time a Jeopardy is opened
+                    QuestionForm.TitleShown = false;
+                }
+
                 try
                 {
                     SettingsIni = new IniFile(openFileDialog1.FileName);
@@ -389,11 +394,6 @@ namespace Jeopardy
                 catch
                 {
                     //do nothing
-                }
-
-                if (QuestionForm.Visible)
-                {   //re-initialize the title-shown variable every time a Jeopardy is opened
-                    QuestionForm.TitleShown = false;
                 }
             }
         }
