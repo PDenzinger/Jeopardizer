@@ -273,9 +273,10 @@ namespace Jeopardy
 
         public void ClearPage()
         {
-            webBrowser1.Navigate("about:blank");
-            webBrowser1.Refresh(WebBrowserRefreshOption.Completely);
-            webBrowser1.Update();
+            //webBrowser1.Navigate("about:blank");
+            //webBrowser1.Refresh(WebBrowserRefreshOption.Completely);
+            //webBrowser1.Update();
+            ChangeDocument("<HTML></HTML>", 1000);
         }
 
         private void btnAnswer_Click(object sender, EventArgs e)
@@ -313,7 +314,6 @@ namespace Jeopardy
 
         public void NextQuestion()
         {
-            ClearPage();
             lblAnswerPopup.Visible = false;
 
             QPanel.Visible = true;
@@ -321,6 +321,8 @@ namespace Jeopardy
             btnAnswer.Visible = false;
             webBrowser1.Visible = false;
             grpScores.Visible = true;
+
+            ClearPage();
         }
 
         public void UpdateOrder(string[] names, Color[] colors)
