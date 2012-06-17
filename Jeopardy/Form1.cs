@@ -390,6 +390,11 @@ namespace Jeopardy
                 {
                     //do nothing
                 }
+
+                if (QuestionForm.Visible)
+                {   //re-initialize the title-shown variable every time a Jeopardy is opened
+                    QuestionForm.TitleShown = false;
+                }
             }
         }
 

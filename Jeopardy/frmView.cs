@@ -13,6 +13,7 @@ namespace Jeopardy
     public partial class frmView : Form
     {
         Form1 mainform;
+        public bool TitleShown = false;
 
         public frmView(Form1 mainf)
         {
@@ -172,7 +173,11 @@ namespace Jeopardy
             }
             grpScores.Visible = true;
             webBrowser1.Visible = false;
-            ShowTitle(true);
+
+            if (!TitleShown)
+            {   //open title page if it has not been shown yet
+                ShowTitle(true);
+            }
         }
 
         public void BtnToggle(string name)
@@ -266,6 +271,13 @@ namespace Jeopardy
             btnNext.Visible = true;
         }
 
+        public void ClearPage()
+        {
+            webBrowser1.Navigate("about:blank");
+            webBrowser1.Refresh(WebBrowserRefreshOption.Completely);
+            webBrowser1.Update();
+        }
+
         private void btnAnswer_Click(object sender, EventArgs e)
         {
             AnswerButton();
@@ -301,6 +313,7 @@ namespace Jeopardy
 
         public void NextQuestion()
         {
+            ClearPage();
             lblAnswerPopup.Visible = false;
 
             QPanel.Visible = true;
@@ -377,6 +390,7 @@ namespace Jeopardy
                 HidePanel.Height = this.Height;
                 HidePanel.BringToFront();
                 HidePanel.Visible = true;
+                TitleShown = true;
             }
             else
             {
