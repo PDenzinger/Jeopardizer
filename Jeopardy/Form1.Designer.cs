@@ -53,6 +53,7 @@
             this.stretchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showCategoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toggleViewScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshAvailableDisplaysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,7 +112,7 @@
             this.btnBlank = new System.Windows.Forms.Button();
             this.txtCategory = new System.Windows.Forms.TextBox();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.showCategoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ResetTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -278,7 +279,7 @@
             // showTitleImageToolStripMenuItem
             // 
             this.showTitleImageToolStripMenuItem.Name = "showTitleImageToolStripMenuItem";
-            this.showTitleImageToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.showTitleImageToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
             this.showTitleImageToolStripMenuItem.Text = "Show Title Image";
             this.showTitleImageToolStripMenuItem.Click += new System.EventHandler(this.showTitleImageToolStripMenuItem_Click);
             // 
@@ -290,41 +291,50 @@
             this.zoomToolStripMenuItem,
             this.tileToolStripMenuItem});
             this.hidePanelLayoutToolStripMenuItem.Name = "hidePanelLayoutToolStripMenuItem";
-            this.hidePanelLayoutToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.hidePanelLayoutToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
             this.hidePanelLayoutToolStripMenuItem.Text = "HidePanel Layout";
             // 
             // centerToolStripMenuItem
             // 
             this.centerToolStripMenuItem.Name = "centerToolStripMenuItem";
-            this.centerToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.centerToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.centerToolStripMenuItem.Text = "Center";
             this.centerToolStripMenuItem.Click += new System.EventHandler(this.centerToolStripMenuItem_Click);
             // 
             // stretchToolStripMenuItem
             // 
             this.stretchToolStripMenuItem.Name = "stretchToolStripMenuItem";
-            this.stretchToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.stretchToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.stretchToolStripMenuItem.Text = "Stretch";
             this.stretchToolStripMenuItem.Click += new System.EventHandler(this.stretchToolStripMenuItem_Click);
             // 
             // zoomToolStripMenuItem
             // 
             this.zoomToolStripMenuItem.Name = "zoomToolStripMenuItem";
-            this.zoomToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.zoomToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.zoomToolStripMenuItem.Text = "Zoom";
             this.zoomToolStripMenuItem.Click += new System.EventHandler(this.zoomToolStripMenuItem_Click);
             // 
             // tileToolStripMenuItem
             // 
             this.tileToolStripMenuItem.Name = "tileToolStripMenuItem";
-            this.tileToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.tileToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.tileToolStripMenuItem.Text = "Tile";
             this.tileToolStripMenuItem.Click += new System.EventHandler(this.tileToolStripMenuItem_Click);
+            // 
+            // showCategoryToolStripMenuItem
+            // 
+            this.showCategoryToolStripMenuItem.Checked = true;
+            this.showCategoryToolStripMenuItem.CheckOnClick = true;
+            this.showCategoryToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showCategoryToolStripMenuItem.Name = "showCategoryToolStripMenuItem";
+            this.showCategoryToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.showCategoryToolStripMenuItem.Text = "Show Category";
             // 
             // toggleViewScreenToolStripMenuItem
             // 
             this.toggleViewScreenToolStripMenuItem.Name = "toggleViewScreenToolStripMenuItem";
-            this.toggleViewScreenToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.toggleViewScreenToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
             this.toggleViewScreenToolStripMenuItem.Text = "Toggle ViewScreen";
             this.toggleViewScreenToolStripMenuItem.Click += new System.EventHandler(this.toggleViewScreenToolStripMenuItem_Click);
             // 
@@ -889,14 +899,10 @@
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // showCategoryToolStripMenuItem
+            // ResetTimer
             // 
-            this.showCategoryToolStripMenuItem.Checked = true;
-            this.showCategoryToolStripMenuItem.CheckOnClick = true;
-            this.showCategoryToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.showCategoryToolStripMenuItem.Name = "showCategoryToolStripMenuItem";
-            this.showCategoryToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
-            this.showCategoryToolStripMenuItem.Text = "Show Category";
+            this.ResetTimer.Interval = 10;
+            this.ResetTimer.Tick += new System.EventHandler(this.ResetTimer_Tick);
             // 
             // Form1
             // 
@@ -1056,6 +1062,7 @@
         private System.Windows.Forms.ToolStripMenuItem zoomToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showCategoryToolStripMenuItem;
+        private System.Windows.Forms.Timer ResetTimer;
     }
 }
 

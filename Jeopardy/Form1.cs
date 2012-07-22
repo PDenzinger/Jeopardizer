@@ -65,6 +65,9 @@ namespace Jeopardy
         {
             if (chkPLC.Checked)
             {
+                //change current player
+                
+
                 //reset standard lock bits
                 dF1Comm1.WriteData("B3:10/0", 0);
                 dF1Comm1.WriteData("B3:0", 0);
@@ -543,13 +546,19 @@ namespace Jeopardy
             //function to change the global variable gActivePlayer
             //also allows the timer to start, only if the player is new/next
 
-            if (player != gActivePlayer)
+            if ((gActivePlayer > -1)&&(player == -1))
             {
                 gActivePlayer = player;
+                btnReset_Click(this, null);
+            }
+            else if (player != gActivePlayer)
+            {
+                gActivePlayer = player;
+                dF1Comm1.WriteData("B3:0/" + player.ToString(), 1);
+                StopTimer();
                 if (start_timer)
                 {
-                    StopTimer();
-                    StartTimer(gTimerDelay, gBuzzerLength);
+                    ResetTimer.Enabled = true;
                 }
             }
 
@@ -575,47 +584,49 @@ namespace Jeopardy
         {
             if (chkPLC.Checked)
             {
-                int[] OrderStatus = dF1Comm1.ReadInt("N7:0", 9);
+                    int[] OrderStatus = dF1Comm1.ReadInt("N7:0", 9);
 
-                int nonZeros = OrderStatus.Count(x => x > 0);
-                int adjust = OrderStatus.Max() - nonZeros;
-                for (int i = 0; i < OrderStatus.Length; i++)
-                {
-                    OrderStatus[i] = OrderStatus[i] - adjust;
-                }
-
-                if (OrderStatus.Max() > 0)
-                {
-                    //int[] PlayerOrder = new int[OrderStatus.Count(x => x>0)];
-                    int[] PlayerOrder = new int[OrderStatus.Max()];
-
-                    //fill PlayerOrder list with a list of the players, in the order they buzzed in
+                    int nonZeros = OrderStatus.Count(x => x > 0);
+                    int adjust = OrderStatus.Max() - nonZeros;
                     for (int i = 0; i < OrderStatus.Length; i++)
                     {
-                        if (OrderStatus[i] > 0)
-                        {
-                            PlayerOrder[OrderStatus[i] - 1] = i;
-                        }
+                        OrderStatus[i] = OrderStatus[i] - adjust;
                     }
 
-                    //read player names
-                    string[] players = new string[]{txtPlayer1.Text,txtPlayer2.Text,txtPlayer3.Text,txtPlayer4.Text,
+                    if (OrderStatus.Max() > 0)
+                    {
+                        //int[] PlayerOrder = new int[OrderStatus.Count(x => x>0)];
+                        int[] PlayerOrder = new int[OrderStatus.Max()];
+
+                        //fill PlayerOrder list with a list of the players, in the order they buzzed in
+                        for (int i = 0; i < OrderStatus.Length; i++)
+                        {
+                            if (OrderStatus[i] > 0)
+                            {
+                                PlayerOrder[OrderStatus[i] - 1] = i;
+                            }
+                        }
+
+                        //read player names
+                        string[] players = new string[]{txtPlayer1.Text,txtPlayer2.Text,txtPlayer3.Text,txtPlayer4.Text,
                     txtPlayer5.Text,txtPlayer6.Text,txtPlayer7.Text,txtPlayer8.Text,"Feud 1","Feud 2"};
 
-                    //fill a list box with this info
-                    listOrder.Items.Clear();
-                    for (int i = 0; i < PlayerOrder.Length; i++)
-                    {
-                        listOrder.Items.Add(PlayerOrder[i].ToString() + ", " + players[PlayerOrder[i]]);
-                    }
+                        //fill a list box with this info
+                        listOrder.Items.Clear();
+                        for (int i = 0; i < PlayerOrder.Length; i++)
+                        {
+                            listOrder.Items.Add(PlayerOrder[i].ToString() + ", " + players[PlayerOrder[i]]);
+                        }
 
-                    UpdateActivePlayer(PlayerOrder[0], true);
-                }
-                else
-                {
-                    listOrder.Items.Clear();
-                    UpdateActivePlayer(-1, false);
-                }
+                        UpdateActivePlayer(PlayerOrder[0], true);
+                        SendListUpdate(listOrder);
+                    }
+                    else
+                    {
+                        listOrder.Items.Clear();
+                        UpdateActivePlayer(-1, false);
+                        SendListUpdate(listOrder);
+                    }
             }
 
         }
@@ -676,6 +687,7 @@ namespace Jeopardy
                         temp1 = ((string)listOrder.Items[0]).Split(',')[0];
                         addressPart = int.Parse(temp1);
                         dF1Comm1.WriteData("N7:" + addressPart.ToString(), 0);
+                        dF1Comm1.WriteData("B3:0/" + addressPart.ToString(), 0);
 
                         PLC_Read();
                         PLC_Timer.Enabled = true;
@@ -743,6 +755,7 @@ namespace Jeopardy
                 if (bkgTimer.CancellationPending)
                 {
                     e.Cancel = true;
+                    bkgTimer.ReportProgress(100);
                     return;
                 }
                 else
@@ -775,6 +788,9 @@ namespace Jeopardy
                     //does it ever fail?
                 }
             }
+            timerBar.Value = 0;
+            timerBar.Update();
+            QuestionForm.UpdateTimer(0);
             BuzzerStop();
         }
 
@@ -927,6 +943,15 @@ namespace Jeopardy
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             QuestionForm.RefreshBrowser();
+        }
+
+        private void ResetTimer_Tick(object sender, EventArgs e)
+        {
+            if (!bkgTimer.IsBusy)
+            {
+                ResetTimer.Enabled = false;
+                StartTimer(gTimerDelay, gBuzzerLength);
+            }
         }
     }
 }

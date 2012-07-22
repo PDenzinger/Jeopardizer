@@ -233,7 +233,7 @@ namespace Jeopardy
             documentText += "</h1></div></td></tr></table></body></html>";
             ChangeDocument(documentText, 1000);
 
-            webBrowser1.Document.GetElementById("answer").Style = "display:none";
+            //webBrowser1.Document.GetElementById("answer").Style = "display:none";
 
             webBrowser1.Visible = true;
             QPanel.Visible = false;
