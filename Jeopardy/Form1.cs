@@ -117,7 +117,7 @@ namespace Jeopardy
             SendForm.Location = sc[index].Bounds.Location;
             Point p = new Point(sc[index].Bounds.Location.X, sc[index].Bounds.Location.Y);
             SendForm.Location = p;
-            //SendForm.WindowState = FormWindowState.Maximized;
+            SendForm.WindowState = FormWindowState.Maximized;
             SendForm.Show();
         }
 
@@ -348,7 +348,7 @@ namespace Jeopardy
                 sendToToolStripMenuItem.DropDownItems.Add(temp1);
                 sendToToolStripMenuItem.DropDownItems[i].Tag = i;
                 sendToToolStripMenuItem.DropDownItems[i].Click += new System.EventHandler(ScreenChooseClick);
-
+                i++;
                 //screenList.Items.Add(temp1);
             }
             
