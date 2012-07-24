@@ -117,7 +117,7 @@ namespace Jeopardy
             SendForm.Location = sc[index].Bounds.Location;
             Point p = new Point(sc[index].Bounds.Location.X, sc[index].Bounds.Location.Y);
             SendForm.Location = p;
-            SendForm.WindowState = FormWindowState.Maximized;
+            //SendForm.WindowState = FormWindowState.Maximized;
             SendForm.Show();
         }
 
@@ -127,7 +127,7 @@ namespace Jeopardy
             populateScreenList();
 
             //auto-open viewscreen on screen 0, perhaps disable this
-            view_mon(0, QuestionForm);
+            //view_mon(0, QuestionForm);
         }
 
         private void ShowTitlePage()

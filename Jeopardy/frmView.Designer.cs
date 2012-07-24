@@ -77,7 +77,7 @@
             // 
             this.btnAnswer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAnswer.Location = new System.Drawing.Point(934, 713);
+            this.btnAnswer.Location = new System.Drawing.Point(937, 713);
             this.btnAnswer.Name = "btnAnswer";
             this.btnAnswer.Size = new System.Drawing.Size(81, 28);
             this.btnAnswer.TabIndex = 2;
@@ -89,7 +89,7 @@
             // 
             this.lblAnswerPopup.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblAnswerPopup.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAnswerPopup.Location = new System.Drawing.Point(842, 678);
+            this.lblAnswerPopup.Location = new System.Drawing.Point(843, 678);
             this.lblAnswerPopup.Name = "lblAnswerPopup";
             this.lblAnswerPopup.Size = new System.Drawing.Size(17, 54);
             this.lblAnswerPopup.TabIndex = 3;
@@ -100,7 +100,7 @@
             this.lblTitle.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(167, 149);
+            this.lblTitle.Location = new System.Drawing.Point(168, 149);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(674, 73);
             this.lblTitle.TabIndex = 4;
@@ -125,12 +125,14 @@
             // 
             // timerBar
             // 
+            this.timerBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.timerBar.BackColor = System.Drawing.SystemColors.Window;
             this.timerBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.timerBar.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.timerBar.Location = new System.Drawing.Point(63, 404);
+            this.timerBar.Location = new System.Drawing.Point(12, 404);
             this.timerBar.Name = "timerBar";
-            this.timerBar.Size = new System.Drawing.Size(598, 22);
+            this.timerBar.Size = new System.Drawing.Size(995, 22);
             this.timerBar.TabIndex = 9;
             this.timerBar.Value = 0F;
             this.timerBar.Visible = false;
@@ -260,7 +262,7 @@
             this.lblNextPlayer.BackColor = System.Drawing.Color.Lime;
             this.lblNextPlayer.Dock = System.Windows.Forms.DockStyle.Right;
             this.lblNextPlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNextPlayer.Location = new System.Drawing.Point(947, 0);
+            this.lblNextPlayer.Location = new System.Drawing.Point(950, 0);
             this.lblNextPlayer.Name = "lblNextPlayer";
             this.lblNextPlayer.Size = new System.Drawing.Size(69, 73);
             this.lblNextPlayer.TabIndex = 12;
@@ -297,7 +299,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1016, 741);
+            this.ClientSize = new System.Drawing.Size(1019, 741);
             this.Controls.Add(this.HidePanel);
             this.Controls.Add(this.SampleQuestion);
             this.Controls.Add(this.SampleHeading);

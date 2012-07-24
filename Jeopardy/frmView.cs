@@ -80,6 +80,8 @@ namespace Jeopardy
             lblTitle.Text = title;
             int Main_Xloc = this.Location.X;
             int Main_Yloc = this.Location.Y;
+            Main_Xloc = 0;
+            Main_Yloc = 0;
 
             lblTitle.Refresh();
             lblTitle.Location = new Point((int)(this.Width*0.5 - lblTitle.Width*0.5), (int)(Main_Yloc + 1));
