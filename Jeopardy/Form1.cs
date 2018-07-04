@@ -111,8 +111,8 @@ namespace Jeopardy
             sc = Screen.AllScreens;
             //get all the screen width and heights
             SendForm.FormBorderStyle = FormBorderStyle.None;
-            SendForm.Left = sc[index].Bounds.Width;
-            SendForm.Top = sc[index].Bounds.Height;
+            SendForm.Width = sc[index].Bounds.Width;
+            SendForm.Height = sc[index].Bounds.Height;
             SendForm.StartPosition = FormStartPosition.Manual;
             SendForm.Location = sc[index].Bounds.Location;
             Point p = new Point(sc[index].Bounds.Location.X, sc[index].Bounds.Location.Y);
@@ -212,6 +212,7 @@ namespace Jeopardy
 
         public void btnClicker(string[] question)
         {
+            btnAnswer.BackColor = SystemColors.Control;
             Button clickedBtn = (Button)(grpBoardControl.Controls["btnQ" + question[1]]);
             if (clickedBtn.BackColor != Color.Red)
             {
@@ -379,6 +380,7 @@ namespace Jeopardy
                 try
                 {
                     SettingsIni = new IniFile(openFileDialog1.FileName);
+                    btn_state = new bool[10,10,10];
                     PopulateScreen(1);
                 }
                 catch
@@ -414,8 +416,49 @@ namespace Jeopardy
             }
         }
 
+        bool[,,] btn_state = new bool[10,10,10];
+        private void getState()
+        {
+            foreach (Button myButton in grpBoardControl.Controls.OfType<Button>())
+            {
+                string[] question = (string[])myButton.Tag;
+                btn_state[int.Parse(question[0]) - 1, int.Parse(question[1].Substring(0, 1)) - 1, int.Parse(question[1].Substring(1, 1)) - 1] = (myButton.BackColor == Color.Red);
+            }
+        }
+
+        private void recallState()
+        {
+            foreach (Button myButton in grpBoardControl.Controls.OfType<Button>())
+            {
+                string[] question = (string[])myButton.Tag;
+                myButton.BackColor = btn_state[int.Parse(question[0]) - 1, int.Parse(question[1].Substring(0, 1)) - 1, int.Parse(question[1].Substring(1, 1)) - 1] ? Color.Red : SystemColors.Control;
+            }
+
+            if (QuestionForm.Visible)
+            {
+                QuestionForm.recallState(btn_state);
+            }
+        }
+
+        private void resetState()
+        {
+            btn_state = new bool[10, 10, 10];
+            foreach (Button myButton in grpBoardControl.Controls.OfType<Button>())
+            {
+                string[] question = (string[])myButton.Tag;
+                myButton.BackColor = SystemColors.Control;
+            }
+
+            if (QuestionForm.Visible)
+            {
+                QuestionForm.resetState();
+            }
+        }
+
         private void nextLevelToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            getState();
+
             int num = int.Parse(gLevel) + 1;
             int limit = int.Parse(SettingsIni.IniReadValue("MAIN", "levels"));
 
@@ -425,10 +468,14 @@ namespace Jeopardy
             }
 
             PopulateScreen(num);
+
+            recallState();
         }
 
         private void previousLevelToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            getState();
+
             int num = int.Parse(gLevel) - 1;
             int limit = int.Parse(SettingsIni.IniReadValue("MAIN", "levels"));
 
@@ -438,6 +485,8 @@ namespace Jeopardy
             }
 
             PopulateScreen(num);
+
+            recallState();
         }
 
         private void numberNamesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -656,7 +705,7 @@ namespace Jeopardy
                     //enable standard beeper
                     dF1Comm1.WriteData("B3:12/1", 0);
                 }
-                catch
+                catch (Exception ex)
                 {
                     //doesn't matter if this fails
                 }
@@ -772,83 +821,83 @@ namespace Jeopardy
 
         private void StartTimer(int TimerLength, int BeepLength)
         {
-            bkgTimer.RunWorkerAsync(new int[] {TimerLength, BeepLength});
+            //bkgTimer.RunWorkerAsync(new int[] {TimerLength, BeepLength});
         }
 
         private void StopTimer()
         {
-            if (bkgTimer.IsBusy)
-            {   //only stop the timer if it is running
-                try
-                {
-                    bkgTimer.CancelAsync();
-                }
-                catch
-                {
-                    //does it ever fail?
-                }
-            }
-            timerBar.Value = 0;
-            timerBar.Update();
-            QuestionForm.UpdateTimer(0);
-            BuzzerStop();
+            //if (bkgTimer.IsBusy)
+            //{   //only stop the timer if it is running
+            //    try
+            //    {
+            //        bkgTimer.CancelAsync();
+            //    }
+            //    catch
+            //    {
+            //        //does it ever fail?
+            //    }
+            //}
+            //timerBar.Value = 0;
+            //timerBar.Update();
+            //QuestionForm.UpdateTimer(0);
+            //BuzzerStop();
         }
 
         private void BuzzerBeep(int duration, BackgroundWorker worker, DoWorkEventArgs e)
         {
-            DateTime startTime = DateTime.Now;
+            //DateTime startTime = DateTime.Now;
 
-            //start beep
-            dF1Comm1.WriteData("B3:12/2", 1);
+            ////start beep
+            //dF1Comm1.WriteData("B3:12/2", 1);
 
-            while (DateTime.Now.Subtract(startTime).TotalMilliseconds < duration)
-            {
-                if (worker.CancellationPending)
-                {
-                    //stop beep and exit
-                    BuzzerStop();
-                    e.Cancel = true;
-                    return;
-                }
-                else
-                {
-                    Thread.Sleep(100);
-                }
-            }
+            //while (DateTime.Now.Subtract(startTime).TotalMilliseconds < duration)
+            //{
+            //    if (worker.CancellationPending)
+            //    {
+            //        //stop beep and exit
+            //        BuzzerStop();
+            //        e.Cancel = true;
+            //        return;
+            //    }
+            //    else
+            //    {
+            //        Thread.Sleep(100);
+            //    }
+            //}
 
-            //stop beep
-            BuzzerStop();
+            ////stop beep
+            //BuzzerStop();
         }
 
         private void BuzzerBeep(int duration)
         {
-            //does not support cancellation, keeps on beeping once started till duration elapses
+            ////does not support cancellation, keeps on beeping once started till duration elapses
 
-            DateTime startTime = DateTime.Now;
+            //DateTime startTime = DateTime.Now;
 
-            //start beep
-            dF1Comm1.WriteData("B3:12/2", 1);
+            ////start beep
+            //dF1Comm1.WriteData("B3:12/2", 1);
 
-            while (DateTime.Now.Subtract(startTime).TotalMilliseconds < duration)
-            {
-                Thread.Sleep(100);
-            }
+            //while (DateTime.Now.Subtract(startTime).TotalMilliseconds < duration)
+            //{
+            //    Thread.Sleep(100);
+            //}
 
-            //stop beep
-            BuzzerStop();
+            ////stop beep
+            //BuzzerStop();
         }
 
         private void BuzzerStop()
         {
-            //stop beep
-            dF1Comm1.WriteData("B3:12/2", 0);
+            ////stop beep
+            //dF1Comm1.WriteData("B3:12/2", 0);
         }
 
         private void bkgTimer_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            timerBar.Value = e.ProgressPercentage;
-            timerBar.Update();
-            QuestionForm.UpdateTimer(timerBar.Value);
+            //timerBar.Value = e.ProgressPercentage;
+            //timerBar.Update();
+            //QuestionForm.UpdateTimer(timerBar.Value);
         }
 
         #endregion
@@ -952,6 +1001,11 @@ namespace Jeopardy
                 ResetTimer.Enabled = false;
                 StartTimer(gTimerDelay, gBuzzerLength);
             }
+        }
+
+        private void resetStateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            resetState();
         }
     }
 }

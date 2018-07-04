@@ -73,6 +73,24 @@ namespace Jeopardy
             return output;
         }
 
+        public void recallState(bool[, ,] btn_state)
+        {
+            foreach (Button myButton in QPanel.Controls.OfType<Button>())
+            {
+                string[] question = (string[])myButton.Tag;
+                myButton.BackColor = btn_state[int.Parse(question[0]) - 1, int.Parse(question[1].Substring(0, 1)) - 1, int.Parse(question[1].Substring(1, 1)) - 1] ? Color.Red : SampleQuestion.BackColor;
+            }
+        }
+
+        public void resetState()
+        {
+            foreach (Button myButton in QPanel.Controls.OfType<Button>())
+            {
+                string[] question = (string[])myButton.Tag;
+                myButton.BackColor = SampleQuestion.BackColor;
+            }
+        }
+
         public void PopulateSelectionScreen(string title, string[] categoryNames, int num_questions, int base_value, int level)
         {
             int num_qs = num_questions;
@@ -84,16 +102,18 @@ namespace Jeopardy
             Main_Yloc = 0;
 
             lblTitle.Refresh();
-            lblTitle.Location = new Point((int)(this.Width*0.5 - lblTitle.Width*0.5), (int)(Main_Yloc + 1));
+            //lblTitle.Location = new Point((int)(this.Width*0.5 - lblTitle.Width*0.5), (int)(Main_Yloc + 1));
 
-            QPanel.Location = new Point(Main_Xloc + 10, lblTitle.Location.Y + lblTitle.Height + 10);
-            QPanel.Width = this.Width - 20;
-            QPanel.Height = this.Height - QPanel.Location.Y - (grpScores.Height);
+            //QPanel.Location = new Point(Main_Xloc + 10, lblTitle.Location.Y + lblTitle.Height + 10);
+            //QPanel.Width = this.Width - 20;
+            //QPanel.Height = this.Height - QPanel.Location.Y - (grpScores.Height);
+            QPanel.Refresh();
 
             //hide panel blanks the screen
             HidePanel.Location = this.Location;
             HidePanel.Width = this.Width;
             HidePanel.Height = this.Height;
+            HidePanel.Dock = DockStyle.Fill;
             HidePanel.BringToFront();
 
             //remove any old items in the groupbox
@@ -107,7 +127,7 @@ namespace Jeopardy
             Point grpLocation = QPanel.Location;
             int grpWidth = QPanel.Width;
             int grpHeight = QPanel.Height;
-            int catWidth = (int)((grpWidth - 20) / num_cat);
+            int catWidth = (int)((grpWidth) / num_cat);
 
             //add new headings
             int LabelHeight = 0;
@@ -165,8 +185,9 @@ namespace Jeopardy
             //add scores
             int scoreWidth = (int)(this.Width / 8);
             int scoreHeight = grpScores.Height - 4;
-            grpScores.Width = this.Width;
-            grpScores.Location = new Point(this.Location.X,QPanel.Location.Y + QPanel.Height);
+            //grpScores.Width = this.Width;
+            //grpScores.Location = new Point(this.Location.X,QPanel.Location.Y + QPanel.Height);
+ 
             for (int i = 1; i <= 8; i++)
             {
                 grpScores.Controls["score" + i.ToString()].Width = scoreWidth;

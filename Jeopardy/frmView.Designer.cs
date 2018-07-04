@@ -97,20 +97,24 @@
             // 
             // lblTitle
             // 
-            this.lblTitle.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblTitle.AutoSize = true;
+            this.lblTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(168, 149);
+            this.lblTitle.Location = new System.Drawing.Point(-1, -1);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(674, 73);
+            this.lblTitle.Size = new System.Drawing.Size(1019, 73);
             this.lblTitle.TabIndex = 4;
             this.lblTitle.Text = "DOUBLE JEOPARDY";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // QPanel
             // 
-            this.QPanel.Location = new System.Drawing.Point(12, 84);
+            this.QPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.QPanel.Location = new System.Drawing.Point(-1, 66);
             this.QPanel.Name = "QPanel";
-            this.QPanel.Size = new System.Drawing.Size(813, 310);
+            this.QPanel.Size = new System.Drawing.Size(1019, 627);
             this.QPanel.TabIndex = 5;
             // 
             // HidePanel
@@ -139,6 +143,8 @@
             // 
             // grpScores
             // 
+            this.grpScores.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.grpScores.Controls.Add(this.score8);
             this.grpScores.Controls.Add(this.score7);
             this.grpScores.Controls.Add(this.score6);
@@ -148,9 +154,9 @@
             this.grpScores.Controls.Add(this.score2);
             this.grpScores.Controls.Add(this.score1);
             this.grpScores.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpScores.Location = new System.Drawing.Point(22, 556);
+            this.grpScores.Location = new System.Drawing.Point(-1, 694);
             this.grpScores.Name = "grpScores";
-            this.grpScores.Size = new System.Drawing.Size(973, 39);
+            this.grpScores.Size = new System.Drawing.Size(1019, 47);
             this.grpScores.TabIndex = 10;
             this.grpScores.TabStop = false;
             this.grpScores.Text = "Scores";
