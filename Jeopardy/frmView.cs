@@ -93,6 +93,9 @@ namespace Jeopardy
 
         public void PopulateSelectionScreen(string title, string[] categoryNames, int num_questions, int base_value, int level)
         {
+            //if a question is still up on screen, clear it
+            NextQuestion();
+
             int num_qs = num_questions;
             int num_cat = categoryNames.Length;
             lblTitle.Text = title;
@@ -225,20 +228,14 @@ namespace Jeopardy
 
         private void ChangeDocument(string documentText, double timeout)
         {
-            File.WriteAllText(mainform.tempfile, documentText);
+            if (mainform.tempfile != "")
+            {
+                File.WriteAllText(mainform.tempfile, documentText);
 
-            webBrowser1.Navigate(mainform.tempfile);
-            webBrowser1.Refresh(WebBrowserRefreshOption.Completely);
-            webBrowser1.Update();
-
-            //DateTime startTime = System.DateTime.Now;
-            //double elapsed = 0;
-
-            //while ((webBrowser1.DocumentText != documentText) && (elapsed < timeout))
-            //{
-            //    System.Threading.Thread.Sleep(50);
-            //    elapsed = System.DateTime.Now.Subtract(startTime).TotalMilliseconds;
-            //}
+                webBrowser1.Navigate(mainform.tempfile);
+                webBrowser1.Refresh(WebBrowserRefreshOption.Completely);
+                webBrowser1.Update();
+            }
         }
 
         public void UpdateScreenQA(string question, string answer)
@@ -255,8 +252,6 @@ namespace Jeopardy
             documentText += answer;
             documentText += "</h1></div></td></tr></table></body></html>";
             ChangeDocument(documentText, 1000);
-
-            //webBrowser1.Document.GetElementById("answer").Style = "display:none";
 
             webBrowser1.Visible = true;
             QPanel.Visible = false;
@@ -284,8 +279,6 @@ namespace Jeopardy
             documentText += "</h1></div></td></tr></table></body></html>";
             ChangeDocument(documentText, 1000);
 
-            //webBrowser1.Document.GetElementById("answer").Style = "display:none";
-
             webBrowser1.Visible = true;
             QPanel.Visible = false;
             grpScores.Visible = false;
@@ -296,9 +289,6 @@ namespace Jeopardy
 
         public void ClearPage()
         {
-            //webBrowser1.Navigate("about:blank");
-            //webBrowser1.Refresh(WebBrowserRefreshOption.Completely);
-            //webBrowser1.Update();
             ChangeDocument("<HTML></HTML>", 1000);
         }
 

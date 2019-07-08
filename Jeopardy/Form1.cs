@@ -363,9 +363,40 @@ namespace Jeopardy
             view_mon(screen_index, QuestionForm);
         }
 
+        private void LevelChooseClick(object sender, EventArgs e)
+        {
+            int chosen_level = (int)(((ToolStripDropDownItem)sender).Tag);
+
+            getState();
+
+            int limit = int.Parse(SettingsIni.IniReadValue("MAIN", "levels"));
+
+            if (chosen_level > limit)
+            {
+                chosen_level = 1;
+            }
+
+            PopulateScreen(chosen_level);
+
+            recallState();
+        }
+
         private void refreshAvailableDisplaysToolStripMenuItem_Click(object sender, EventArgs e)
         {
             populateScreenList();
+        }
+
+        private void PopulateLevelDropDown()
+        {
+            levelJumpToolStripMenuItem.DropDownItems.Clear();
+            int limit = int.Parse(SettingsIni.IniReadValue("MAIN", "levels"));
+
+            for (int i = 1; i <= limit; i++)
+            {
+                levelJumpToolStripMenuItem.DropDownItems.Add(SettingsIni.IniReadValue("LEVEL" + i.ToString(), "name"));
+                levelJumpToolStripMenuItem.DropDownItems[i - 1].Tag = i;
+                levelJumpToolStripMenuItem.DropDownItems[i - 1].Click += new System.EventHandler(LevelChooseClick);
+            }
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -381,6 +412,7 @@ namespace Jeopardy
                 {
                     SettingsIni = new IniFile(openFileDialog1.FileName);
                     btn_state = new bool[10,10,10];
+                    PopulateLevelDropDown();
                     PopulateScreen(1);
                 }
                 catch
@@ -1006,6 +1038,15 @@ namespace Jeopardy
         private void resetStateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             resetState();
+        }
+
+        private void firstLevelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            getState();
+
+            PopulateScreen(1);
+
+            recallState();
         }
     }
 }
