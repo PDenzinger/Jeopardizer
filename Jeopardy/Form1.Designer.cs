@@ -126,6 +126,8 @@
             this.btnRefresh = new System.Windows.Forms.Button();
             this.ResetTimer = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnDoTimer = new System.Windows.Forms.Button();
+            this.nudTimerSeconds = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
@@ -137,6 +139,7 @@
             this.tableLayoutPanel9.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTimerSeconds)).BeginInit();
             this.SuspendLayout();
             // 
             // dF1Comm1
@@ -1181,13 +1184,14 @@
             // 
             // timerBar
             // 
+            this.timerBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.timerBar.BackColor = System.Drawing.SystemColors.Window;
             this.timerBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.timerBar.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.timerBar.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.timerBar.Location = new System.Drawing.Point(0, 422);
+            this.timerBar.Location = new System.Drawing.Point(84, 422);
             this.timerBar.Name = "timerBar";
-            this.timerBar.Size = new System.Drawing.Size(661, 25);
+            this.timerBar.Size = new System.Drawing.Size(577, 25);
             this.timerBar.TabIndex = 34;
             this.timerBar.Value = 0F;
             // 
@@ -1263,11 +1267,47 @@
             this.tableLayoutPanel10.Size = new System.Drawing.Size(230, 205);
             this.tableLayoutPanel10.TabIndex = 65;
             // 
+            // btnDoTimer
+            // 
+            this.btnDoTimer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDoTimer.Location = new System.Drawing.Point(43, 422);
+            this.btnDoTimer.Name = "btnDoTimer";
+            this.btnDoTimer.Size = new System.Drawing.Size(41, 25);
+            this.btnDoTimer.TabIndex = 66;
+            this.btnDoTimer.Text = "Time";
+            this.btnDoTimer.UseVisualStyleBackColor = true;
+            this.btnDoTimer.Click += new System.EventHandler(this.btnDoTimer_Click);
+            // 
+            // nudTimerSeconds
+            // 
+            this.nudTimerSeconds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.nudTimerSeconds.Location = new System.Drawing.Point(2, 425);
+            this.nudTimerSeconds.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.nudTimerSeconds.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudTimerSeconds.Name = "nudTimerSeconds";
+            this.nudTimerSeconds.Size = new System.Drawing.Size(41, 20);
+            this.nudTimerSeconds.TabIndex = 67;
+            this.nudTimerSeconds.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(661, 447);
+            this.Controls.Add(this.nudTimerSeconds);
+            this.Controls.Add(this.btnDoTimer);
             this.Controls.Add(this.txtCategory);
             this.Controls.Add(this.tableLayoutPanel10);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -1303,6 +1343,7 @@
             this.menuStrip1.PerformLayout();
             this.tableLayoutPanel10.ResumeLayout(false);
             this.tableLayoutPanel10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTimerSeconds)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1407,6 +1448,8 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
+        private System.Windows.Forms.NumericUpDown nudTimerSeconds;
+        private System.Windows.Forms.Button btnDoTimer;
     }
 }
 

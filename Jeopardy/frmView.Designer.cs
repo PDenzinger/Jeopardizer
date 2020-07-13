@@ -134,9 +134,9 @@
             this.timerBar.BackColor = System.Drawing.SystemColors.Window;
             this.timerBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.timerBar.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.timerBar.Location = new System.Drawing.Point(12, 404);
+            this.timerBar.Location = new System.Drawing.Point(55, 716);
             this.timerBar.Name = "timerBar";
-            this.timerBar.Size = new System.Drawing.Size(995, 22);
+            this.timerBar.Size = new System.Drawing.Size(881, 22);
             this.timerBar.TabIndex = 9;
             this.timerBar.Value = 0F;
             this.timerBar.Visible = false;
@@ -154,7 +154,7 @@
             this.grpScores.Controls.Add(this.score2);
             this.grpScores.Controls.Add(this.score1);
             this.grpScores.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpScores.Location = new System.Drawing.Point(-1, 694);
+            this.grpScores.Location = new System.Drawing.Point(0, 694);
             this.grpScores.Name = "grpScores";
             this.grpScores.Size = new System.Drawing.Size(1019, 47);
             this.grpScores.TabIndex = 10;
@@ -306,12 +306,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1019, 741);
+            this.Controls.Add(this.grpScores);
             this.Controls.Add(this.HidePanel);
             this.Controls.Add(this.SampleQuestion);
             this.Controls.Add(this.SampleHeading);
             this.Controls.Add(this.lblNextPlayer);
             this.Controls.Add(this.lblCurrentPlayer);
-            this.Controls.Add(this.grpScores);
             this.Controls.Add(this.timerBar);
             this.Controls.Add(this.QPanel);
             this.Controls.Add(this.lblAnswerPopup);

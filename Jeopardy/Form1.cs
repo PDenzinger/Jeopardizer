@@ -129,6 +129,8 @@ namespace Jeopardy
             QuestionForm = new frmView(this);
             populateScreenList();
 
+            nudTimerSeconds.Value = Convert.ToDecimal(gTimerDelay / 1000);
+
             //auto-open viewscreen on screen 0, perhaps disable this
             //view_mon(0, QuestionForm);
         }
@@ -1062,6 +1064,18 @@ namespace Jeopardy
             PopulateScreen(1);
 
             recallState();
+        }
+
+        private void btnDoTimer_Click(object sender, EventArgs e)
+        {
+            if (bkgTimer.IsBusy)
+            {
+                StopTimer();
+            }
+            else
+            {
+                StartTimer(Convert.ToInt32(nudTimerSeconds.Value*1000), gBuzzerLength);
+            }
         }
     }
 }
