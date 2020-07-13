@@ -20,6 +20,9 @@ namespace Jeopardy
         frmView QuestionForm;
         public IniFile SettingsIni;
 
+        //bypass settings
+        bool use_PC_timer_with_PLC = false;
+
         //global settings:
         //buzzer related (time in ms)
         int gTimerDelay = 3000;
@@ -699,7 +702,7 @@ namespace Jeopardy
                             listOrder.Items.Add(PlayerOrder[i].ToString() + ", " + players[PlayerOrder[i]]);
                         }
 
-                        UpdateActivePlayer(PlayerOrder[0], true);
+                        UpdateActivePlayer(PlayerOrder[0], use_PC_timer_with_PLC);
                         SendListUpdate(listOrder);
                     }
                     else
@@ -841,7 +844,7 @@ namespace Jeopardy
                 }
                 else
                 {
-                    bkgTimer.ReportProgress((int)((DateTime.Now.Subtract(startTime).TotalMilliseconds / WaitTime)*100));
+                    bkgTimer.ReportProgress((int)(((DateTime.Now.Subtract(startTime).TotalMilliseconds*100) / WaitTime)));
                     Thread.Sleep(100);
                 }
             }
@@ -853,83 +856,95 @@ namespace Jeopardy
 
         private void StartTimer(int TimerLength, int BeepLength)
         {
-            //bkgTimer.RunWorkerAsync(new int[] {TimerLength, BeepLength});
+            bkgTimer.RunWorkerAsync(new int[] { TimerLength, BeepLength });
         }
 
         private void StopTimer()
         {
-            //if (bkgTimer.IsBusy)
-            //{   //only stop the timer if it is running
-            //    try
-            //    {
-            //        bkgTimer.CancelAsync();
-            //    }
-            //    catch
-            //    {
-            //        //does it ever fail?
-            //    }
-            //}
-            //timerBar.Value = 0;
-            //timerBar.Update();
-            //QuestionForm.UpdateTimer(0);
-            //BuzzerStop();
+            if (bkgTimer.IsBusy)
+            {   //only stop the timer if it is running
+                try
+                {
+                    bkgTimer.CancelAsync();
+                }
+                catch
+                {
+                    //does it ever fail?
+                }
+            }
+            timerBar.Value = 0;
+            timerBar.Update();
+            QuestionForm.UpdateTimer(0);
+            BuzzerStop();
         }
 
         private void BuzzerBeep(int duration, BackgroundWorker worker, DoWorkEventArgs e)
         {
-            //DateTime startTime = DateTime.Now;
+            if (use_PC_timer_with_PLC)
+            {
+                DateTime startTime = DateTime.Now;
 
-            ////start beep
-            //dF1Comm1.WriteData("B3:12/2", 1);
+                //start beep
+                dF1Comm1.WriteData("B3:12/2", 1);
 
-            //while (DateTime.Now.Subtract(startTime).TotalMilliseconds < duration)
-            //{
-            //    if (worker.CancellationPending)
-            //    {
-            //        //stop beep and exit
-            //        BuzzerStop();
-            //        e.Cancel = true;
-            //        return;
-            //    }
-            //    else
-            //    {
-            //        Thread.Sleep(100);
-            //    }
-            //}
+                while (DateTime.Now.Subtract(startTime).TotalMilliseconds < duration)
+                {
+                    if (worker.CancellationPending)
+                    {
+                        //stop beep and exit
+                        BuzzerStop();
+                        e.Cancel = true;
+                        return;
+                    }
+                    else
+                    {
+                        Thread.Sleep(100);
+                    }
+                }
 
-            ////stop beep
-            //BuzzerStop();
+                //stop beep
+                BuzzerStop();
+            }
         }
 
         private void BuzzerBeep(int duration)
         {
-            ////does not support cancellation, keeps on beeping once started till duration elapses
+            if (use_PC_timer_with_PLC)
+            {
+                //does not support cancellation, keeps on beeping once started till duration elapses
 
-            //DateTime startTime = DateTime.Now;
+                DateTime startTime = DateTime.Now;
 
-            ////start beep
-            //dF1Comm1.WriteData("B3:12/2", 1);
+                //start beep
+                dF1Comm1.WriteData("B3:12/2", 1);
 
-            //while (DateTime.Now.Subtract(startTime).TotalMilliseconds < duration)
-            //{
-            //    Thread.Sleep(100);
-            //}
+                while (DateTime.Now.Subtract(startTime).TotalMilliseconds < duration)
+                {
+                    Thread.Sleep(100);
+                }
 
-            ////stop beep
-            //BuzzerStop();
+                //stop beep
+                BuzzerStop();
+            }
         }
 
         private void BuzzerStop()
         {
-            ////stop beep
-            //dF1Comm1.WriteData("B3:12/2", 0);
+            if (use_PC_timer_with_PLC)
+            {
+                //stop beep
+                dF1Comm1.WriteData("B3:12/2", 0);
+            }
         }
 
         private void bkgTimer_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            //timerBar.Value = e.ProgressPercentage;
-            //timerBar.Update();
-            //QuestionForm.UpdateTimer(timerBar.Value);
+            timerBar.Value = e.ProgressPercentage;
+            timerBar.Update();
+            if (QuestionForm != null)
+            {
+                QuestionForm.UpdateTimer(timerBar.Value);
+            }
         }
 
         #endregion
